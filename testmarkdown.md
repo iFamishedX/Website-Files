@@ -6,11 +6,11 @@ Normal text
 _Italic Underscore_  
 *Italic asterisk*  
 Normal text
-- Bullet 1
-- Bullet 1
-  - Bullet 2
-    - Bullet 3
-      - Bullet 4
+- Bullet 1     
+- Bullet 1       
+  - Bullet 2    
+    - Bullet 3     
+      - Bullet 4      
 
 
 ```
@@ -21,6 +21,6 @@ code block
 below code block
 
 
-- Top level  
-  - Second level  
-    - Third level  
+- Top level         
+  - Second level       
+    - Third level       
