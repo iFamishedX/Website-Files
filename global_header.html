@@ -1,80 +1,105 @@
-<!-- Load Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<!-- Background layers -->
+<div class="page-bg"></div>
+<div class="page-gradient"></div>
+
+<!-- Toggle button -->
+<button class="toggle-bg" id="modeToggle">
+  <i class="fa-solid fa-moon"></i>
+</button>
 
 <style>
-body {
-  margin: 0;
-  padding-top: 70px;
-}
-
-@keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
-@keyframes sweepInRight {
-  0% { opacity: 0; transform: translateX(40px); }
-  100% { opacity: 1; transform: translateX(0); }
-}
-
-.sticky-header {
+.page-bg,
+.page-gradient {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  backdrop-filter: blur(20px);
-  background-color: rgba(0, 0, 0, 0.3);
-  border-bottom: 1px solid #CFCFCF3D;
-  z-index: 999;
-  padding: 12px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  height: 100%;
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 0.4s ease;
+}
+.page-gradient {
+  background-image: linear-gradient(to top, #0000004F 0%, #0000001A 100%);
+  pointer-events: none;
+}
+body.darkmode .page-gradient {
+  display: none;
+}
+
+body {
+  margin: 0;
   font-family: 'Work Sans', sans-serif;
-  opacity: 0;
-  animation: fadeIn 0.8s ease-out 0.25s forwards;
+  transition: color 0.4s ease;
 }
-
-.sticky-left {
-  display: flex;
-  align-items: center;
-}
-.sticky-center {
-  display: flex;
-  justify-content: center;
-  gap: 14px;
-  flex: 1;
-}
-
-.sticky-header a {
+body.darkmode {
   color: white;
-  text-decoration: none;
-  border: 1px solid white;
-  padding: 8px 16px;
-  border-radius: 16px;
-  font-size: 14px;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  transform: translateX(40px);
-  opacity: 0;
-  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
-.sticky-header a:hover {
-  background-color: white;
-  color: #000;
-  transform: scale(1.08);
-}
-.sticky-left a {
-  padding: 8px;
+
+.toggle-bg {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
+  background: black;
+  color: white;
   border: none;
-  font-size: 18px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: sweepIn 0.4s ease forwards;
+  animation-delay: 0.25s;
+}
+body.darkmode .toggle-bg {
+  background: white;
+  color: black;
+}
+
+@keyframes sweepIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
 
-<!-- Header HTML -->
-<div class="sticky-header">
-  <div class="sticky-left"></div>
-  <div class="sticky-center"></div>
-</div>
+<script>
+const toggleBtn = document.getElementById("modeToggle");
+const bg = document.querySelector(".page-bg");
+const gradient = document.querySelector(".page-gradient");
+const cfg = window.bgConfig;
+
+// Apply saved mode
+if (localStorage.getItem("darkmode") === "true") {
+  document.body.classList.add("darkmode");
+  toggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+  if (bg && cfg) bg.style.backgroundImage = `url('${cfg.backgroundDark}')`;
+  if (gradient) gradient.style.display = "none";
+}
+
+// Toggle and persist
+toggleBtn.addEventListener("click", () => {
+  const isDark = document.body.classList.toggle("darkmode");
+  localStorage.setItem("darkmode", isDark);
+  toggleBtn.innerHTML = isDark
+    ? '<i class="fa-solid fa-sun"></i>'
+    : '<i class="fa-solid fa-moon"></i>';
+
+  if (bg && cfg) {
+    bg.style.backgroundImage = isDark
+      ? `url('${cfg.backgroundDark}')`
+      : `url('${cfg.backgroundLight}')`;
+  }
+  if (gradient) gradient.style.display = isDark ? "none" : "block";
+});
+</script>
