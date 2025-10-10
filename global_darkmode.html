@@ -4,6 +4,11 @@
 
 <!-- Mode toggle + icons -->
 <div class="mode-toggle-wrapper">
+  <button id="modeTrigger" aria-label="Toggle modes">
+    <div class="bar top"></div>
+    <div class="bar middle"></div>
+    <div class="bar bottom"></div>
+  </button>
   <div class="mode-icons" id="modeIcons">
     <button data-mode="sunrise"><i class="fa-solid fa-cloud-sun"></i></button>
     <button data-mode="noon"><i class="fa-solid fa-sun"></i></button>
@@ -11,11 +16,6 @@
     <button data-mode="midnight"><i class="fa-solid fa-star"></i></button>
     <button data-mode="auto"><i class="fa-solid fa-clock"></i></button>
   </div>
-  <button id="modeTrigger" aria-label="Toggle modes">
-    <div class="bar top"></div>
-    <div class="bar middle"></div>
-    <div class="bar bottom"></div>
-  </button>
 </div>
 
 <style>
@@ -57,8 +57,8 @@ body.darkmode {
   z-index: 1000;
   display: flex;
   align-items: center;
-  gap: 12px;
   flex-direction: row-reverse;
+  gap: 12px;
 }
 
 /* Hamburger icon */
@@ -142,8 +142,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Toggle visibility + morph icon
   trigger.addEventListener("click", () => {
-    icons.classList.toggle("active");
     trigger.classList.toggle("active");
+    icons.classList.toggle("active");
   });
 
   function resolveMode(mode) {
