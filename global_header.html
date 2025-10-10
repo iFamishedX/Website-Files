@@ -1,0 +1,80 @@
+<!-- Load Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body {
+  margin: 0;
+  padding-top: 70px;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes sweepInRight {
+  0% { opacity: 0; transform: translateX(40px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+.sticky-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  backdrop-filter: blur(20px);
+  background-color: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid #CFCFCF3D;
+  z-index: 999;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Work Sans', sans-serif;
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out 0.25s forwards;
+}
+
+.sticky-left {
+  display: flex;
+  align-items: center;
+}
+.sticky-center {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex: 1;
+}
+
+.sticky-header a {
+  color: white;
+  text-decoration: none;
+  border: 1px solid white;
+  padding: 8px 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transform: translateX(40px);
+  opacity: 0;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.sticky-header a:hover {
+  background-color: white;
+  color: #000;
+  transform: scale(1.08);
+}
+.sticky-left a {
+  padding: 8px;
+  border-radius: 50%;
+  border: none;
+  font-size: 18px;
+}
+</style>
+
+<!-- Header HTML -->
+<div class="sticky-header">
+  <div class="sticky-left"></div>
+  <div class="sticky-center"></div>
+</div>
