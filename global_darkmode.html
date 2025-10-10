@@ -2,13 +2,8 @@
 <div class="page-bg"></div>
 <div class="page-gradient"></div>
 
-<!-- Mode toggle + icons -->
+<!-- Toggle + mode buttons -->
 <div class="mode-toggle-wrapper">
-  <button id="modeTrigger" aria-label="Toggle modes">
-    <div class="bar top"></div>
-    <div class="bar middle"></div>
-    <div class="bar bottom"></div>
-  </button>
   <div class="mode-icons" id="modeIcons">
     <button data-mode="sunrise"><i class="fa-solid fa-cloud-sun"></i></button>
     <button data-mode="noon"><i class="fa-solid fa-sun"></i></button>
@@ -16,6 +11,11 @@
     <button data-mode="midnight"><i class="fa-solid fa-star"></i></button>
     <button data-mode="auto"><i class="fa-solid fa-clock"></i></button>
   </div>
+  <button id="modeTrigger" aria-label="Toggle modes">
+    <div class="bar top"></div>
+    <div class="bar middle"></div>
+    <div class="bar bottom"></div>
+  </button>
 </div>
 
 <style>
@@ -49,7 +49,7 @@ body.darkmode {
   color: white;
 }
 
-/* Toggle wrapper anchored bottom right */
+/* Wrapper anchored bottom right */
 .mode-toggle-wrapper {
   position: fixed;
   bottom: 20px;
@@ -136,11 +136,10 @@ body.darkmode .mode-icons button {
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const modeButtons = document.querySelectorAll(".mode-icons button");
   const trigger = document.getElementById("modeTrigger");
   const icons = document.getElementById("modeIcons");
+  const buttons = icons.querySelectorAll("button");
 
-  // Toggle visibility + morph icon
   trigger.addEventListener("click", () => {
     trigger.classList.toggle("active");
     icons.classList.toggle("active");
@@ -171,7 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (gradient) gradient.style.display = isDark ? "none" : "block";
   }
 
-  modeButtons.forEach(btn => {
+  buttons.forEach(btn => {
     btn.addEventListener("click", () => {
       const mode = btn.dataset.mode;
       window.bgConfig.mode = mode;
