@@ -2,9 +2,9 @@
 <div class="page-bg"></div>
 <div class="page-gradient"></div>
 
-<!-- Toggle button -->
-<button class="toggle-bg" id="modeToggle">
-  <i class="fa-solid fa-moon"></i>
+<!-- Mode toggle button -->
+<button class="toggle-bg" id="modeToggle" title="Change mode">
+  <i class="fa-solid fa-clock"></i>
 </button>
 
 <style>
@@ -74,32 +74,58 @@ body.darkmode .toggle-bg {
 </style>
 
 <script>
-const toggleBtn = document.getElementById("modeToggle");
-const bg = document.querySelector(".page-bg");
-const gradient = document.querySelector(".page-gradient");
-const cfg = window.bgConfig;
+const modeToggle = document.getElementById("modeToggle");
+const modeIcons = {
+  sunrise: "fa-cloud-sun",
+  noon: "fa-sun",
+  night: "fa-moon",
+  midnight: "fa-star",
+  auto: "fa-clock"
+};
+const modeOrder = ["sunrise", "noon", "night", "midnight", "auto"];
+let currentModeIndex = 4; // Start at 'auto'
 
-// Apply saved mode
-if (localStorage.getItem("darkmode") === "true") {
-  document.body.classList.add("darkmode");
-  toggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
-  if (bg && cfg) bg.style.backgroundImage = `url('${cfg.backgroundDark}')`;
-  if (gradient) gradient.style.display = "none";
+function resolveMode(mode) {
+  if (mode === "auto") {
+    const hour = new Date().getHours();
+    if (hour >= 5 && hour < 10) return "sunrise";
+    if (hour >= 10 && hour < 17) return "noon";
+    if (hour >= 17 && hour < 21) return "night";
+    return "midnight";
+  }
+  return mode;
 }
 
-// Toggle and persist
-toggleBtn.addEventListener("click", () => {
-  const isDark = document.body.classList.toggle("darkmode");
-  localStorage.setItem("darkmode", isDark);
-  toggleBtn.innerHTML = isDark
-    ? '<i class="fa-solid fa-sun"></i>'
-    : '<i class="fa-solid fa-moon"></i>';
+function applyMode(mode) {
+  const cfg = window.bgConfig;
+  const resolved = resolveMode(mode);
+  const isDark = ["night", "midnight"].includes(resolved);
+  const bg = document.querySelector(".page-bg");
+  const gradient = document.querySelector(".page-gradient");
 
-  if (bg && cfg) {
-    bg.style.backgroundImage = isDark
-      ? `url('${cfg.backgroundDark}')`
-      : `url('${cfg.backgroundLight}')`;
+  document.body.classList.toggle("darkmode", isDark);
+  if (bg && cfg?.backgrounds?.[resolved]) {
+    bg.style.backgroundImage = `url('${cfg.backgrounds[resolved]}')`;
   }
   if (gradient) gradient.style.display = isDark ? "none" : "block";
+
+  const icon = modeIcons[mode];
+  modeToggle.innerHTML = `<i class="fa-solid ${icon}"></i>`;
+}
+
+modeToggle.addEventListener("click", () => {
+  currentModeIndex = (currentModeIndex + 1) % modeOrder.length;
+  const mode = modeOrder[currentModeIndex];
+  window.bgConfig = window.bgConfig || {};
+  window.bgConfig.mode = mode;
+  localStorage.setItem("visualMode", mode);
+  applyMode(mode);
 });
+
+// Restore saved mode
+const saved = localStorage.getItem("visualMode");
+if (saved && modeOrder.includes(saved)) {
+  currentModeIndex = modeOrder.indexOf(saved);
+}
+applyMode(modeOrder[currentModeIndex]);
 </script>
