@@ -85,6 +85,17 @@ body.darkmode .toggle-stack button {
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+  // ✅ Ensure bgConfig is always defined
+  window.bgConfig = window.bgConfig || {
+    backgrounds: {
+      sunrise: "",
+      noon: "",
+      night: "",
+      midnight: ""
+    },
+    mode: "auto"
+  };
+
   const modeButtons = document.querySelectorAll(".toggle-stack button");
 
   function resolveMode(mode) {
@@ -120,7 +131,6 @@ document.addEventListener("DOMContentLoaded", () => {
   modeButtons.forEach(btn => {
     btn.addEventListener("click", () => {
       const mode = btn.dataset.mode;
-      window.bgConfig = window.bgConfig || {};
       window.bgConfig.mode = mode;
       localStorage.setItem("visualMode", mode);
       applyMode(mode);
@@ -128,6 +138,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const saved = localStorage.getItem("visualMode");
-  applyMode(saved || window.bgConfig?.mode || "auto");
+  applyMode(saved || window.bgConfig.mode || "auto");
 });
 </script>
