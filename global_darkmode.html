@@ -19,7 +19,33 @@
 </div>
 
 <style>
-.page-bg,
+body {
+  margin: 0;
+  font-family: 'Work Sans', sans-serif;
+  transition: background-color 2s ease, color 2s ease;
+}
+body.darkmode {
+  color: white;
+  background-color: #000;
+}
+body:not(.darkmode) {
+  background-color: #fff;
+}
+
+/* Background layers */
+.page-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 1;
+  transition: opacity 2s ease;
+}
 .page-gradient {
   position: fixed;
   top: 0;
@@ -27,29 +53,15 @@
   width: 100%;
   height: 100%;
   z-index: -1;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  transition: background-image 0.4s ease;
-}
-.page-gradient {
   background-image: linear-gradient(to top, #0000004F 0%, #0000001A 100%);
   pointer-events: none;
+  transition: opacity 2s ease;
 }
 body.darkmode .page-gradient {
-  display: none;
+  opacity: 0;
 }
 
-body {
-  margin: 0;
-  font-family: 'Work Sans', sans-serif;
-  transition: color 0.4s ease;
-}
-body.darkmode {
-  color: white;
-}
-
-/* Wrapper anchored bottom right */
+/* Toggle wrapper anchored bottom right */
 .mode-toggle-wrapper {
   position: fixed;
   bottom: 20px;
@@ -81,6 +93,7 @@ body.darkmode {
   height: 2px;
   background: white;
   transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center;
 }
 body.darkmode #modeTrigger {
   background: white;
@@ -91,13 +104,13 @@ body.darkmode .bar {
 
 /* Morph to X */
 #modeTrigger.active .top {
-  transform: rotate(45deg) translate(4px, 4px);
+  transform: rotate(45deg);
 }
 #modeTrigger.active .middle {
   opacity: 0;
 }
 #modeTrigger.active .bottom {
-  transform: rotate(-45deg) translate(4px, -4px);
+  transform: rotate(-45deg);
 }
 
 /* Mode buttons slide left */
@@ -133,53 +146,3 @@ body.darkmode .mode-icons button {
   color: black;
 }
 </style>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const trigger = document.getElementById("modeTrigger");
-  const icons = document.getElementById("modeIcons");
-  const buttons = icons.querySelectorAll("button");
-
-  trigger.addEventListener("click", () => {
-    trigger.classList.toggle("active");
-    icons.classList.toggle("active");
-  });
-
-  function resolveMode(mode) {
-    if (mode === "auto") {
-      const hour = new Date().getHours();
-      if (hour >= 5 && hour < 10) return "sunrise";
-      if (hour >= 10 && hour < 17) return "noon";
-      if (hour >= 17 && hour < 21) return "night";
-      return "midnight";
-    }
-    return mode;
-  }
-
-  function applyMode(mode) {
-    const cfg = window.bgConfig;
-    const resolved = resolveMode(mode);
-    const isDark = ["night", "midnight"].includes(resolved);
-    const bg = document.querySelector(".page-bg");
-    const gradient = document.querySelector(".page-gradient");
-
-    document.body.classList.toggle("darkmode", isDark);
-    if (bg && cfg?.backgrounds?.[resolved]) {
-      bg.style.backgroundImage = `url('${cfg.backgrounds[resolved]}')`;
-    }
-    if (gradient) gradient.style.display = isDark ? "none" : "block";
-  }
-
-  buttons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const mode = btn.dataset.mode;
-      window.bgConfig.mode = mode;
-      localStorage.setItem("visualMode", mode);
-      applyMode(mode);
-    });
-  });
-
-  const saved = localStorage.getItem("visualMode");
-  applyMode(saved || window.bgConfig.mode || "auto");
-});
-</script>
