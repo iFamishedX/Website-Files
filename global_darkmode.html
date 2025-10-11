@@ -3,7 +3,12 @@
 <div class="page-gradient"></div>
 
 <!-- Toggle + mode buttons -->
-<div class="mode-toggle-wrapper">
+<div class="mode-toggle-container">
+  <button id="modeTrigger" aria-label="Toggle modes">
+    <div class="bar top"></div>
+    <div class="bar middle"></div>
+    <div class="bar bottom"></div>
+  </button>
   <div class="mode-icons" id="modeIcons">
     <button data-mode="sunrise"><i class="fa-solid fa-cloud-sun"></i></button>
     <button data-mode="noon"><i class="fa-solid fa-sun"></i></button>
@@ -11,11 +16,6 @@
     <button data-mode="midnight"><i class="fa-solid fa-star"></i></button>
     <button data-mode="auto"><i class="fa-solid fa-clock"></i></button>
   </div>
-  <button id="modeTrigger" aria-label="Toggle modes">
-    <div class="bar top"></div>
-    <div class="bar middle"></div>
-    <div class="bar bottom"></div>
-  </button>
 </div>
 
 <style>
@@ -49,8 +49,8 @@ body.darkmode {
   color: white;
 }
 
-/* Wrapper anchored bottom right */
-.mode-toggle-wrapper {
+/* Container anchored bottom right */
+.mode-toggle-container {
   position: fixed;
   bottom: 20px;
   right: 20px;
