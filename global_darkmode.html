@@ -22,6 +22,7 @@
 body {
   margin: 0;
   font-family: 'Work Sans', sans-serif;
+  transition: background-color 2s ease, color 2s ease;
 }
 body.darkmode {
   color: white;
@@ -31,6 +32,7 @@ body:not(.darkmode) {
   background-color: #fff;
 }
 
+/* Background layer with fade */
 .page-bg {
   position: fixed;
   top: 0;
@@ -41,7 +43,11 @@ body:not(.darkmode) {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  opacity: 1;
+  transition: opacity 2s ease;
 }
+
+/* Gradient overlay */
 .page-gradient {
   position: fixed;
   top: 0;
@@ -51,11 +57,14 @@ body:not(.darkmode) {
   z-index: -1;
   background-image: linear-gradient(to top, #0000004F 0%, #0000001A 100%);
   pointer-events: none;
+  opacity: 1;
+  transition: opacity 2s ease;
 }
 body.darkmode .page-gradient {
   opacity: 0;
 }
 
+/* Toggle wrapper */
 .mode-toggle-wrapper {
   position: fixed;
   bottom: 20px;
@@ -67,6 +76,7 @@ body.darkmode .page-gradient {
   gap: 12px;
 }
 
+/* Hamburger icon */
 #modeTrigger {
   width: 44px;
   height: 44px;
@@ -79,11 +89,13 @@ body.darkmode .page-gradient {
   align-items: center;
   gap: 5px;
   cursor: pointer;
+  transition: background-color 2s ease;
 }
 .bar {
   width: 20px;
   height: 2px;
   background: white;
+  transition: transform 0.3s ease, opacity 0.3s ease, background-color 2s ease;
   transform-origin: center;
 }
 body.darkmode #modeTrigger {
@@ -102,12 +114,14 @@ body.darkmode .bar {
   transform: rotate(-45deg);
 }
 
+/* Mode buttons */
 .mode-icons {
   display: flex;
   gap: 12px;
   opacity: 0;
   transform: translateX(20px);
   pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 .mode-icons.active {
   opacity: 1;
@@ -126,6 +140,7 @@ body.darkmode .bar {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: background-color 2s ease, color 2s ease;
 }
 body.darkmode .mode-icons button {
   background: white;
