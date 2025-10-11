@@ -1,15 +1,9 @@
 <!-- Background layers -->
-<div class="page-bg bgA visible"></div>
-<div class="page-bg bgB"></div>
+<div class="page-bg"></div>
 <div class="page-gradient"></div>
 
-<!-- Toggle + mode buttons -->
+<!-- Mode toggle + icons -->
 <div class="mode-toggle-wrapper">
-  <button id="modeTrigger" aria-label="Toggle modes">
-    <div class="bar top"></div>
-    <div class="bar middle"></div>
-    <div class="bar bottom"></div>
-  </button>
   <div class="mode-icons" id="modeIcons">
     <button data-mode="sunrise"><i class="fa-solid fa-cloud-sun"></i></button>
     <button data-mode="noon"><i class="fa-solid fa-sun"></i></button>
@@ -17,39 +11,15 @@
     <button data-mode="midnight"><i class="fa-solid fa-star"></i></button>
     <button data-mode="auto"><i class="fa-solid fa-clock"></i></button>
   </div>
+  <button id="modeTrigger" aria-label="Toggle modes">
+    <div class="bar top"></div>
+    <div class="bar middle"></div>
+    <div class="bar bottom"></div>
+  </button>
 </div>
 
 <style>
-body {
-  margin: 0;
-  font-family: 'Work Sans', sans-serif;
-  transition: background-color 2s ease, color 2s ease;
-}
-body.darkmode {
-  color: white;
-  background-color: #000;
-}
-body:not(.darkmode) {
-  background-color: #fff;
-}
-
-.page-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0;
-  transition: opacity 2s ease;
-}
-.page-bg.visible {
-  opacity: 1;
-}
-
+.page-bg,
 .page-gradient {
   position: fixed;
   top: 0;
@@ -57,15 +27,29 @@ body:not(.darkmode) {
   width: 100%;
   height: 100%;
   z-index: -1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 0.4s ease;
+}
+.page-gradient {
   background-image: linear-gradient(to top, #0000004F 0%, #0000001A 100%);
   pointer-events: none;
-  opacity: 1;
-  transition: opacity 2s ease;
 }
 body.darkmode .page-gradient {
-  opacity: 0;
+  display: none;
 }
 
+body {
+  margin: 0;
+  font-family: 'Work Sans', sans-serif;
+  transition: color 0.4s ease;
+}
+body.darkmode {
+  color: white;
+}
+
+/* Toggle wrapper anchored bottom right */
 .mode-toggle-wrapper {
   position: fixed;
   bottom: 20px;
@@ -73,10 +57,11 @@ body.darkmode .page-gradient {
   z-index: 1000;
   display: flex;
   align-items: center;
-  flex-direction: row-reverse;
   gap: 12px;
+  flex-direction: row-reverse;
 }
 
+/* Hamburger icon */
 #modeTrigger {
   width: 44px;
   height: 44px;
@@ -89,12 +74,13 @@ body.darkmode .page-gradient {
   align-items: center;
   gap: 5px;
   cursor: pointer;
+  transition: background 0.3s ease;
 }
 .bar {
   width: 20px;
   height: 2px;
   background: white;
-  transform-origin: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 body.darkmode #modeTrigger {
   background: white;
@@ -102,16 +88,19 @@ body.darkmode #modeTrigger {
 body.darkmode .bar {
   background: black;
 }
+
+/* Morph to X */
 #modeTrigger.active .top {
-  transform: rotate(45deg);
+  transform: rotate(45deg) translate(4px, 4px);
 }
 #modeTrigger.active .middle {
   opacity: 0;
 }
 #modeTrigger.active .bottom {
-  transform: rotate(-45deg);
+  transform: rotate(-45deg) translate(4px, -4px);
 }
 
+/* Mode buttons slide left */
 .mode-icons {
   display: flex;
   gap: 12px;
@@ -137,9 +126,61 @@ body.darkmode .bar {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 body.darkmode .mode-icons button {
   background: white;
   color: black;
 }
 </style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const modeButtons = document.querySelectorAll(".mode-icons button");
+  const trigger = document.getElementById("modeTrigger");
+  const icons = document.getElementById("modeIcons");
+
+  // Toggle visibility + morph icon
+  trigger.addEventListener("click", () => {
+    icons.classList.toggle("active");
+    trigger.classList.toggle("active");
+  });
+
+  function resolveMode(mode) {
+    if (mode === "auto") {
+      const hour = new Date().getHours();
+      if (hour >= 5 && hour < 10) return "sunrise";
+      if (hour >= 10 && hour < 17) return "noon";
+      if (hour >= 17 && hour < 21) return "night";
+      return "midnight";
+    }
+    return mode;
+  }
+
+  function applyMode(mode) {
+    const cfg = window.bgConfig;
+    const resolved = resolveMode(mode);
+    const isDark = ["night", "midnight"].includes(resolved);
+    const bg = document.querySelector(".page-bg");
+    const gradient = document.querySelector(".page-gradient");
+
+    document.body.classList.toggle("darkmode", isDark);
+    if (bg && cfg?.backgrounds?.[resolved]) {
+      bg.style.backgroundImage = `url('${cfg.backgrounds[resolved]}')`;
+    }
+    if (gradient) gradient.style.display = isDark ? "none" : "block";
+  }
+
+  modeButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const mode = btn.dataset.mode;
+      window.bgConfig.mode = mode;
+      localStorage.setItem("visualMode", mode);
+      applyMode(mode);
+    });
+  });
+
+  const saved = localStorage.getItem("visualMode");
+  applyMode(saved || window.bgConfig.mode || "auto");
+});
+</script>
