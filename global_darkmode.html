@@ -4,6 +4,11 @@
 
 <!-- Mode toggle + icons -->
 <div class="mode-toggle-wrapper">
+  <button id="modeTrigger">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </button>
   <div class="mode-icons" id="modeIcons">
     <button data-mode="sunrise"><i class="fa-solid fa-cloud-sun"></i></button>
     <button data-mode="noon"><i class="fa-solid fa-sun"></i></button>
@@ -11,11 +16,6 @@
     <button data-mode="midnight"><i class="fa-solid fa-star"></i></button>
     <button data-mode="auto"><i class="fa-solid fa-clock"></i></button>
   </div>
-  <button id="modeTrigger" aria-label="Toggle modes">
-    <div class="bar top"></div>
-    <div class="bar middle"></div>
-    <div class="bar bottom"></div>
-  </button>
 </div>
 
 <style>
@@ -49,7 +49,7 @@ body.darkmode {
   color: white;
 }
 
-/* Toggle wrapper anchored bottom right */
+/* Toggle wrapper */
 .mode-toggle-wrapper {
   position: fixed;
   bottom: 20px;
@@ -58,7 +58,6 @@ body.darkmode {
   display: flex;
   align-items: center;
   gap: 12px;
-  flex-direction: row-reverse;
 }
 
 /* Hamburger icon */
@@ -72,35 +71,23 @@ body.darkmode {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
   cursor: pointer;
-  transition: background 0.3s ease;
 }
-.bar {
+#modeTrigger .bar {
   width: 20px;
   height: 2px;
   background: white;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.3s ease;
 }
 body.darkmode #modeTrigger {
   background: white;
 }
-body.darkmode .bar {
+body.darkmode #modeTrigger .bar {
   background: black;
 }
 
-/* Morph to X */
-#modeTrigger.active .top {
-  transform: rotate(45deg) translate(4px, 4px);
-}
-#modeTrigger.active .middle {
-  opacity: 0;
-}
-#modeTrigger.active .bottom {
-  transform: rotate(-45deg) translate(4px, -4px);
-}
-
-/* Mode buttons slide left */
+/* Mode buttons */
 .mode-icons {
   display: flex;
   gap: 12px;
@@ -140,12 +127,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const trigger = document.getElementById("modeTrigger");
   const icons = document.getElementById("modeIcons");
 
-  // Toggle visibility + morph icon
+  // Toggle visibility
   trigger.addEventListener("click", () => {
     icons.classList.toggle("active");
-    trigger.classList.toggle("active");
   });
 
+  // Mode logic
   function resolveMode(mode) {
     if (mode === "auto") {
       const hour = new Date().getHours();
