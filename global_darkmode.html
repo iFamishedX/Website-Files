@@ -10,11 +10,11 @@
     <div class="bar bottom"></div>
   </button>
   <div class="mode-icons" id="modeIcons">
-    <button data-mode="sunrise"><i class="fa-solid fa-cloud-sun"></i></button>
-    <button data-mode="noon"><i class="fa-solid fa-sun"></i></button>
-    <button data-mode="night"><i class="fa-solid fa-moon"></i></button>
-    <button data-mode="midnight"><i class="fa-solid fa-star"></i></button>
-    <button data-mode="auto"><i class="fa-solid fa-clock"></i></button>
+    <button data-mode="sunrise" data-tooltip="Sunrise"><i class="fa-solid fa-cloud-sun"></i></button>
+    <button data-mode="noon" data-tooltip="Noon"><i class="fa-solid fa-sun"></i></button>
+    <button data-mode="night" data-tooltip="Night"><i class="fa-solid fa-moon"></i></button>
+    <button data-mode="midnight" data-tooltip="Midnight"><i class="fa-solid fa-star"></i></button>
+    <button data-mode="auto" data-tooltip="Auto Mode"><i class="fa-solid fa-clock"></i></button>
   </div>
 </div>
 
@@ -72,7 +72,7 @@ body.darkmode .page-gradient {
   gap: 12px;
 }
 
-/* Hamburger button with morphing bars */
+/* Slide-up animation for hamburger */
 #modeTrigger {
   position: relative;
   width: 44px;
@@ -82,7 +82,19 @@ body.darkmode .page-gradient {
   border-radius: 50%;
   cursor: pointer;
   transition: background-color 2s ease;
+  animation: slideUp 0.6s ease-out forwards;
+  animation-delay: 0.5s;
+  opacity: 0;
+  transform: translateY(20px);
 }
+@keyframes slideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hamburger bars */
 .bar {
   position: absolute;
   left: 50%;
@@ -92,15 +104,9 @@ body.darkmode .page-gradient {
   transform: translateX(-50%);
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
-.bar.top {
-  top: 12px;
-}
-.bar.middle {
-  top: 21px;
-}
-.bar.bottom {
-  top: 30px;
-}
+.bar.top { top: 12px; }
+.bar.middle { top: 21px; }
+.bar.bottom { top: 30px; }
 #modeTrigger.active .top {
   transform: translateX(-50%) rotate(45deg);
   top: 21px;
@@ -119,7 +125,7 @@ body.darkmode .bar {
   background: black;
 }
 
-/* Horizontal mode buttons fade in */
+/* Mode buttons */
 .mode-icons {
   display: flex;
   gap: 12px;
@@ -134,6 +140,7 @@ body.darkmode .bar {
   pointer-events: auto;
 }
 .mode-icons button {
+  position: relative;
   width: 44px;
   height: 44px;
   border-radius: 50%;
@@ -150,5 +157,30 @@ body.darkmode .bar {
 body.darkmode .mode-icons button {
   background: white;
   color: black;
+}
+
+/* Tooltip styling */
+.mode-icons button::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #222;
+  color: #fff;
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+body.darkmode .mode-icons button::after {
+  background: #eee;
+  color: #111;
+}
+.mode-icons button:hover::after {
+  opacity: 1;
 }
 </style>
