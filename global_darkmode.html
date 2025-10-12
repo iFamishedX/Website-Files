@@ -12,23 +12,28 @@
   <div class="mode-icons" id="modeIcons">
     <button data-mode="sunrise" data-tooltip="Sunrise"><i class="fa-solid fa-cloud-sun"></i></button>
     <button data-mode="noon" data-tooltip="Noon"><i class="fa-solid fa-sun"></i></button>
-    <button data-mode="night" data-tooltip="Night"><i class="fa-solid fa-moon"></i></button>
+    <button data-mode="dusk" data-tooltip="Dusk"><i class="fa-solid fa-moon"></i></button>
     <button data-mode="midnight" data-tooltip="Midnight"><i class="fa-solid fa-star"></i></button>
     <button data-mode="auto" data-tooltip="Auto Mode"><i class="fa-solid fa-clock"></i></button>
   </div>
 </div>
 
 <style>
+/* System hint for smoother transitions */
+:root {
+  color-scheme: light dark;
+}
+
 body {
   margin: 0;
   font-family: 'Work Sans', sans-serif;
   color: black;
-  background-color: white;
+  background-color: #f5f5f5;
   transition: color 2s ease, background-color 2s ease;
 }
 body.darkmode {
   color: white;
-  background-color: black;
+  background-color: #111;
 }
 
 .page-bg {
@@ -159,7 +164,7 @@ body.darkmode .mode-icons button {
   color: black;
 }
 
-/* Tooltip styling */
+/* Tooltip styling with 2s fade */
 .mode-icons button::after {
   content: attr(data-tooltip);
   position: absolute;
@@ -174,7 +179,7 @@ body.darkmode .mode-icons button {
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: opacity 2s ease;
 }
 body.darkmode .mode-icons button::after {
   background: #eee;
