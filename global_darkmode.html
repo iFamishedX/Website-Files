@@ -1,6 +1,5 @@
 <!-- Background layers -->
-<div class="page-bg bgA visible"></div>
-<div class="page-bg bgB"></div>
+<div class="page-bg"></div>
 <div class="page-gradient"></div>
 
 <!-- Toggle + mode buttons -->
@@ -39,11 +38,8 @@ body.darkmode {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0;
-  transition: opacity 2s ease;
-}
-.page-bg.visible {
   opacity: 1;
+  transition: opacity 0.4s ease;
 }
 
 .page-gradient {
@@ -56,13 +52,13 @@ body.darkmode {
   background-image: linear-gradient(to top, #0000004F 0%, #0000001A 100%);
   pointer-events: none;
   opacity: 1;
-  transition: opacity 2s ease;
+  transition: opacity 0.4s ease;
 }
 body.darkmode .page-gradient {
   opacity: 0;
 }
 
-/* Wrapper anchors everything to bottom right */
+/* Anchored wrapper */
 .mode-toggle-wrapper {
   position: fixed;
   bottom: 20px;
@@ -100,7 +96,7 @@ body.darkmode .bar {
   background: black;
 }
 
-/* Stack slides left when active */
+/* Stacked buttons */
 .toggle-stack {
   display: flex;
   flex-direction: column;
@@ -108,11 +104,12 @@ body.darkmode .bar {
   opacity: 0;
   transform: translateX(40px);
   pointer-events: none;
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  animation: slideIn 0.6s ease-out forwards;
+  animation-delay: 1s;
 }
 .toggle-stack.active {
+  transform: translateX(-60px);
   opacity: 1;
-  transform: translateX(0);
   pointer-events: auto;
 }
 .toggle-stack button {
@@ -132,5 +129,12 @@ body.darkmode .bar {
 body.darkmode .toggle-stack button {
   background: white;
   color: black;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 </style>
