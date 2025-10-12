@@ -13,13 +13,12 @@
     <button data-mode="sunrise" data-tooltip="Sunrise"><i class="fa-solid fa-cloud-sun"></i></button>
     <button data-mode="noon" data-tooltip="Noon"><i class="fa-solid fa-sun"></i></button>
     <button data-mode="dusk" data-tooltip="Dusk"><i class="fa-solid fa-moon"></i></button>
-    <button data-mode="midnight" data-tooltip="Midnight"><i class="fa-solid fa-star"></i></button>
+    <button data-mode="night" data-tooltip="Night"><i class="fa-solid fa-star"></i></button>
     <button data-mode="auto" data-tooltip="Auto Mode"><i class="fa-solid fa-clock"></i></button>
   </div>
 </div>
 
 <style>
-/* System hint for smoother transitions */
 :root {
   color-scheme: light dark;
 }
@@ -63,6 +62,15 @@ body.darkmode {
 }
 body.darkmode .page-gradient {
   opacity: 0;
+}
+
+/* Markdown parser background */
+.markdown-body {
+  background-color: #ffffff;
+  transition: background-color 2s ease;
+}
+body.darkmode .markdown-body {
+  background-color: #1a1a1a;
 }
 
 /* Anchored wrapper */
@@ -164,25 +172,25 @@ body.darkmode .mode-icons button {
   color: black;
 }
 
-/* Tooltip styling with 2s fade */
+/* Tooltip styling */
 .mode-icons button::after {
   content: attr(data-tooltip);
   position: absolute;
   bottom: 110%;
   left: 50%;
   transform: translateX(-50%);
-  background: #222;
-  color: #fff;
   padding: 6px 10px;
   font-size: 12px;
   border-radius: 6px;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 2s ease;
+  background-color: #222;
+  color: #fff;
+  transition: opacity 0.3s ease, background-color 2s ease, color 2s ease;
 }
 body.darkmode .mode-icons button::after {
-  background: #eee;
+  background-color: #eee;
   color: #111;
 }
 .mode-icons button:hover::after {
