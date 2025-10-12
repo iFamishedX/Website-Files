@@ -62,7 +62,19 @@ body.darkmode .page-gradient {
   opacity: 0;
 }
 
-/* Hamburger button (static) */
+/* Wrapper anchors everything to bottom right */
+.mode-toggle-wrapper {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: row-reverse;
+  gap: 12px;
+}
+
+/* Static hamburger */
 #modeTrigger {
   width: 44px;
   height: 44px;
@@ -88,12 +100,8 @@ body.darkmode .bar {
   background: black;
 }
 
-/* Stacked buttons slide left when active */
+/* Stack slides left when active */
 .toggle-stack {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 1000;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -104,7 +112,7 @@ body.darkmode .bar {
 }
 .toggle-stack.active {
   opacity: 1;
-  transform: translateX(-60px);
+  transform: translateX(0);
   pointer-events: auto;
 }
 .toggle-stack button {
