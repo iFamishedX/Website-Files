@@ -90,15 +90,16 @@ body.darkmode .page-gradient {
   background: white;
   transition: transform 0.3s ease, opacity 0.3s ease;
   transform-origin: center;
+  position: relative;
 }
 #modeTrigger.active .top {
-  transform: rotate(45deg) translateY(6px);
+  transform: rotate(45deg);
 }
 #modeTrigger.active .middle {
   opacity: 0;
 }
 #modeTrigger.active .bottom {
-  transform: rotate(-45deg) translateY(-6px);
+  transform: rotate(-45deg);
 }
 body.darkmode #modeTrigger {
   background: white;
