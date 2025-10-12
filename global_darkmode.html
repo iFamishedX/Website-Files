@@ -22,10 +22,13 @@
 body {
   margin: 0;
   font-family: 'Work Sans', sans-serif;
-  transition: color 0.4s ease;
+  color: black;
+  background-color: white;
+  transition: color 0.4s ease, background-color 0.4s ease;
 }
 body.darkmode {
   color: white;
+  background-color: black;
 }
 
 .page-bg {
@@ -142,7 +145,7 @@ body.darkmode .bar {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background 0.3s ease, color 0.3s ease;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 body.darkmode .mode-icons button {
   background: white;
