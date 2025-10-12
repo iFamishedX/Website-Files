@@ -35,6 +35,14 @@ body.darkmode {
   background-color: #111;
 }
 
+.markdown-body {
+  background-color: #ffffff;
+  transition: background-color 2s ease;
+}
+body.darkmode .markdown-body {
+  background-color: #1a1a1a;
+}
+
 .page-bg {
   position: fixed;
   top: 0;
@@ -62,15 +70,6 @@ body.darkmode {
 }
 body.darkmode .page-gradient {
   opacity: 0;
-}
-
-/* Markdown parser background */
-.markdown-body {
-  background-color: #ffffff;
-  transition: background-color 2s ease;
-}
-body.darkmode .markdown-body {
-  background-color: #1a1a1a;
 }
 
 /* Anchored wrapper */
