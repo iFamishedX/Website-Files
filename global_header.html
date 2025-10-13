@@ -103,14 +103,18 @@ body {
   transform: scale(1.08);
 }
 
-/* Home icon only */
+/* Home icon only — no border */
 .home-button {
   padding: 8px;
-  border-radius: 50%;
   border: none;
-  font-size: 18px;
   background: none;
+  font-size: 18px;
+  transform: translateX(40px);
+  opacity: 0;
   animation: sweepInRight 0.6s ease-out 1.0s forwards;
+}
+.home-button:hover {
+  transform: scale(1.08);
 }
 
 /* Animate buttons in sequence */
