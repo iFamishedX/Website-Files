@@ -1,29 +1,45 @@
-<!-- Load Font Awesome for icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<!-- Sticky Header -->
+<div class="sticky-header">
+  <div class="sticky-left">
+    <a href="https://optifineforfabric.com">
+      <i class="fa-solid fa-house"></i>
+    </a>
+  </div>
+
+  <div class="sticky-center">
+    <a href="https://ifamished.com">
+      <i class="fa-solid fa-user"></i> About Me
+    </a>
+    <a href="https://changelogs.optifineforfabric.com">
+      <i class="fa-solid fa-list"></i> Changelogs
+    </a>
+    <a href="https://hungersmp.com">
+      <i class="fa-solid fa-server"></i> Join my server!
+    </a>
+    <a href="https://download.optifineforfabric.com">
+      <i class="fa-solid fa-download"></i> Download
+    </a>
+  </div>
+</div>
 
 <style>
 body {
   margin: 0;
-  padding-top: 70px; /* offset for sticky header */
+  padding-top: 70px;
+  font-family: 'Work Sans', sans-serif;
 }
 
-/* Animation keyframes */
+/* Entrance animation */
 @keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 @keyframes sweepInRight {
-  0% {
-    opacity: 0;
-    transform: translateX(40px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  0% { opacity: 0; transform: translateX(40px); }
+  100% { opacity: 1; transform: translateX(0); }
 }
 
-/* Sticky header */
+/* Header container */
 .sticky-header {
   position: fixed;
   top: 0;
@@ -37,9 +53,20 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: 'Work Sans', sans-serif;
   opacity: 0;
-  animation: fadeIn 0.8s ease-out 0.25s forwards;
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Disable animation if flagged */
+.sticky-header.no-animate {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+.sticky-header.no-animate a {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
 }
 
 /* Layout */
@@ -85,32 +112,8 @@ body {
 }
 
 /* Animate buttons in sequence */
-.sticky-header a:nth-child(1) { animation: sweepInRight 0.6s ease-out 1.5s forwards; }
-.sticky-header a:nth-child(2) { animation: sweepInRight 0.6s ease-out 1.7s forwards; }
-.sticky-header a:nth-child(3) { animation: sweepInRight 0.6s ease-out 1.9s forwards; }
-.sticky-header a:nth-child(4) { animation: sweepInRight 0.6s ease-out 2.1s forwards; }
+.sticky-center a:nth-child(1) { animation: sweepInRight 0.6s ease-out 1.2s forwards; }
+.sticky-center a:nth-child(2) { animation: sweepInRight 0.6s ease-out 1.4s forwards; }
+.sticky-center a:nth-child(3) { animation: sweepInRight 0.6s ease-out 1.6s forwards; }
+.sticky-center a:nth-child(4) { animation: sweepInRight 0.6s ease-out 1.8s forwards; }
 </style>
-
-<!-- Header HTML -->
-<div class="sticky-header">
-  <div class="sticky-left">
-    <a href="https://optifineforfabric.com">
-      <i class="fa-solid fa-house"></i>
-    </a>
-  </div>
-
-  <div class="sticky-center">
-    <a href="https://ifamished.com">
-      <i class="fa-solid fa-user"></i> About Me
-    </a>
-    <a href="https://changelogs.optifineforfabric.com">
-      <i class="fa-solid fa-list"></i> Changelogs
-    </a>
-    <a href="https://hungersmp.com">
-      <i class="fa-solid fa-server"></i> Join my server!
-    </a>
-    <a href="https://download.optifineforfabric.com">
-      <i class="fa-solid fa-download"></i> Download
-    </a>
-  </div>
-</div>
