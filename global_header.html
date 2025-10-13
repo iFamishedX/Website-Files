@@ -104,18 +104,21 @@ body {
   transform: scale(1.08);
 }
 
-/* Home icon only — no border, no padding */
+/* Home icon only — no border, no padding, scaled 1.5x */
 .home-button {
   border: none !important;
   padding: 0 !important;
   background: none !important;
-  font-size: 18px;
   transform: translateX(40px);
   opacity: 0;
   animation: sweepInRight 0.6s ease-out 1.0s forwards;
 }
-.home-button:hover {
-  transform: scale(1.08);
+.home-button i {
+  font-size: 27px;
+}
+.sticky-header.no-animate .home-button i {
+  transform: none !important;
+  opacity: 1 !important;
 }
 
 /* Animate buttons in sequence */
