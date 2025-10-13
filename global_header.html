@@ -29,7 +29,7 @@ body {
   font-family: 'Work Sans', sans-serif;
 }
 
-/* Entrance animation */
+/* Animations */
 @keyframes fadeIn {
   0% { opacity: 0; transform: translateY(-20px); }
   100% { opacity: 1; transform: translateY(0); }
@@ -37,6 +37,10 @@ body {
 @keyframes sweepInRight {
   0% { opacity: 0; transform: translateX(40px); }
   100% { opacity: 1; transform: translateX(0); }
+}
+@keyframes softFade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 /* Header container */
@@ -57,17 +61,9 @@ body {
   animation: fadeIn 0.6s ease-out forwards;
 }
 
-/* Suppress animation if preload or no-animate is active */
-body.preload .sticky-header,
-.sticky-header.no-animate {
-  animation: none !important;
-  opacity: 1 !important;
-  transform: none !important;
-}
-body.preload .sticky-header a,
-.sticky-header.no-animate a {
-  animation: none !important;
-  opacity: 1 !important;
+/* Small fade-in override */
+.sticky-header.fade-only {
+  animation: softFade 0.4s ease-out forwards;
   transform: none !important;
 }
 
