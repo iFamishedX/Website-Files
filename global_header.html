@@ -1,7 +1,7 @@
 <!-- Sticky Header -->
 <div class="sticky-header">
   <div class="sticky-left">
-    <a href="https://optifineforfabric.com">
+    <a href="https://optifineforfabric.com" class="home-button">
       <i class="fa-solid fa-house"></i>
     </a>
   </div>
@@ -104,11 +104,12 @@ body {
 }
 
 /* Home icon only */
-.sticky-left a {
+.home-button {
   padding: 8px;
   border-radius: 50%;
   border: none;
   font-size: 18px;
+  animation: sweepInRight 0.6s ease-out 1.0s forwards;
 }
 
 /* Animate buttons in sequence */
