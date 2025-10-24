@@ -1,0 +1,203 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>iFamished</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<meta name="color-scheme" content="light only" />
+		<meta name="description" content="iFamished&#039;s projects." />
+		<meta property="og:site_name" content="iFamished" />
+		<meta property="og:title" content="iFamished" />
+		<meta property="og:type" content="website" />
+		<meta property="og:description" content="iFamished&#039;s projects." />
+		<link href="https://fonts.googleapis.com/css2?display=swap&family=Moderustic:ital,wght@0,400;0,500;1,400;1,500&family=Source+Sans+3:ital,wght@0,400;1,400" rel="stylesheet" type="text/css" />
+		<link rel="icon" type="image/png" href="assets/images/favicon.png" />
+		<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png" />
+		<link rel="stylesheet" href="assets/main.css" />
+		<noscript><link rel="stylesheet" href="assets/noscript.css" /></noscript>
+	</head>
+	<body class="is-loading">
+		<!-- qweoqwupeoiqwuewqe --><!-- Load Font Awesome for icons -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+		
+		<!-- Inject sticky header -->
+		<div id="global-header"></div>
+		<script>
+		const ref = document.referrer;
+		const headerSites = [
+		"optifineforfabric.com",
+		"ifamished.com",
+		"hungersmp.com",
+		"changelogs.optifineforfabric.com",
+		"download.optifineforfabric.com"
+		];
+		const fadeOnly = headerSites.some(domain => ref.includes(domain));
+		
+		fetch("https://assets.ifamished.com/global_header.html")
+		.then(res => res.text())
+		.then(html => {
+		document.getElementById("global-header").innerHTML = html;
+		
+		const header = document.querySelector(".sticky-header");
+		if (header && fadeOnly) {
+		header.classList.add("fade-only");
+		}
+		});
+		</script><!-- mnbnbxmbzxmncbzxc -->
+		<div class="site-wrapper">
+			<div class="site-main">
+				<div class="inner">
+					<div id="container02" class="container-component instance-2 default">
+						<div class="wrapper">
+							<div class="inner">
+								<h1 id="text02" class="text-component instance-2 style-1">About Me</h1>
+								<p id="text05" class="text-component instance-5 style-2"><span class="p">I&#39;m iFamished! I mod Minecraft — from custom modpacks to smooth Vanilla+ enhancements, I thrive on testing the limits of the game. My biggest creation is Optifine for Fabric, the leading alternative to Optifine for modern Fabric versions. It’s fast, compatible, and built for performance.</span><span class="p">I also run The Hunger SMP, a semi-anarchy Minecraft server where chaos meets creativity. If you’re into wild survival, unpredictable alliances, and no hand-holding, you’ll feel right at home.</span><span class="p">When I’m not coding or managing servers, you’ll probably find me playing Bedwars on Hypixel, clutching 1v4s or god bridging like my life depends on it.</span><span class="p">Want to collaborate, join the server, or just chat Minecraft? Reach out or check out the website — I’m always down to connect.</span></p>
+							</div>
+						</div>
+					</div>
+					<div id="container01" class="container-component instance-1 default">
+						<div class="wrapper">
+							<div class="inner">
+								<ul id="buttons01" class="buttons-component instance-1 style-1">
+									<li>
+										<a href="https://discord.com/users/1385818506259464284/" target="_blank" class="n01" role="button"><svg aria-labelledby="buttons01-icon-1-title"><title id="buttons01-icon-1-title">Discord</title><use xlink:href="assets/icons.svg#discord"></use></svg><span class="label">DM me on Discord</span></a>
+									</li><li>
+										<a href="mailto:me@ifamished.com" class="n02" role="button"><svg aria-labelledby="buttons01-icon-2-title"><title id="buttons01-icon-2-title">Email</title><use xlink:href="assets/icons.svg#email"></use></svg><span class="label">Email me</span></a>
+									</li><li>
+										<a href="https://github.com/iFamished" class="n03" role="button"><svg aria-labelledby="buttons01-icon-3-title"><title id="buttons01-icon-3-title">GitHub</title><use xlink:href="assets/icons.svg#github"></use></svg><span class="label">Check out my Github</span></a>
+									</li><li>
+										<a href="https://modrinth.com/user/iFamished/" target="_blank" class="n04" role="button"><svg aria-labelledby="buttons01-icon-4-title"><title id="buttons01-icon-4-title">Modrinth</title><use xlink:href="assets/icons.svg#modrinth"></use></svg><span class="label">Find me on Modrinth</span></a>
+									</li><li>
+										<a href="#" class="n05" role="button"><svg aria-labelledby="buttons01-icon-5-title"><title id="buttons01-icon-5-title">Download</title><use xlink:href="assets/icons.svg#download"></use></svg><span class="label">Download Optifine for Fabric</span></a>
+									</li><li>
+										<a href="https://hungersmp.com" class="n06" role="button"><svg aria-labelledby="buttons01-icon-6-title"><title id="buttons01-icon-6-title">Globe</title><use xlink:href="assets/icons.svg#globe"></use></svg><span class="label">Join The Hunger SMP</span></a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="assets/main.js"></script>
+		<!-- qweoqwupeoiqwuewqe --><!-- Font Awesome (load once globally) -->
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+		
+		<style>
+		.page-bg,
+		.page-gradient {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		}
+		
+		/* Light mode image with fade animation */
+		.page-bg {
+		background-image: url('https://i.imgur.com/wBnMmPG.png'); /* Light mode */
+		transition: background-image 0.4s ease;
+		}
+		
+		/* Gradient layer (only visible in light mode) */
+		.page-gradient {
+		background-image: linear-gradient(to top, #0000004F 0%, #0000001A 100%);
+		pointer-events: none;
+		}
+		
+		/* Dark mode image */
+		body.darkmode .page-bg {
+		background-image: url('https://i.imgur.com/nEJsbFT.png'); /* Dark mode */
+		}
+		
+		/* Hide gradient in dark mode */
+		body.darkmode .page-gradient {
+		display: none;
+		}
+		
+		body {
+		margin: 0;
+		padding: 0;
+		color: black;
+		font-family: 'Work Sans', sans-serif;
+		transition: color 0.4s ease;
+		}
+		body.darkmode {
+		color: white;
+		}
+		
+		/* Icon toggle button */
+		.toggle-bg {
+		position: fixed;
+		bottom: 20px;
+		right: 20px;
+		z-index: 1000;
+		width: 44px;
+		height: 44px;
+		border-radius: 50%;
+		background: black;
+		color: white;
+		border: none;
+		font-size: 20px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		transition: background 0.3s ease, color 0.3s ease;
+		opacity: 0;
+		transform: translateY(20px);
+		}
+		body.darkmode .toggle-bg {
+		background: white;
+		color: black;
+		}
+		
+		/* Sweep-in animation */
+		.toggle-bg.animate-in {
+		animation: sweepIn 0.4s ease forwards;
+		}
+		@keyframes sweepIn {
+		to {
+		opacity: 1;
+		transform: translateY(0);
+		}
+		}
+		</style>
+		
+		<!-- Background layers -->
+		<div class="page-bg"></div>
+		<div class="page-gradient"></div>
+		
+		<!-- Icon toggle button -->
+		<button class="toggle-bg" id="modeToggle">
+		<i class="fa-solid fa-moon"></i>
+		</button>
+		
+		<script>
+		// Apply saved mode on load
+		const toggleBtn = document.getElementById("modeToggle");
+		if (localStorage.getItem("darkmode") === "true") {
+		document.body.classList.add("darkmode");
+		toggleBtn.innerHTML = '<i class="fa-solid fa-sun"></i>';
+		}
+		
+		// Animate toggle icon after page load
+		setTimeout(() => {
+		toggleBtn.classList.add("animate-in");
+		}, 250);
+		
+		// Toggle and persist
+		toggleBtn.addEventListener("click", () => {
+		const isDark = document.body.classList.toggle("darkmode");
+		localStorage.setItem("darkmode", isDark);
+		toggleBtn.innerHTML = isDark
+		? '<i class="fa-solid fa-sun"></i>'
+		: '<i class="fa-solid fa-moon"></i>';
+		});
+		</script><!-- mnbnbxmbzxmncbzxc -->
+	</body>
+</html>
