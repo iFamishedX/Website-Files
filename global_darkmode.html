@@ -83,7 +83,7 @@ body.darkmode .page-gradient {
   position: relative;
   width: 44px;
   height: 44px;
-  background: #111;
+  background: #f9f9f9;
   border: none;
   border-radius: 50%;
   cursor: pointer;
@@ -91,6 +91,9 @@ body.darkmode .page-gradient {
   animation-delay: 0.5s;
   opacity: 0;
   transform: translateY(20px);
+}
+body.darkmode #modeTrigger {
+  background: #111;
 }
 @keyframes slideUp {
   to {
@@ -104,9 +107,12 @@ body.darkmode .page-gradient {
   left: 50%;
   width: 20px;
   height: 2px;
-  background: #f9f9f9;
+  background: #111;
   transform: translateX(-50%);
   transition: transform 0.3s ease, opacity 0.3s ease;
+}
+body.darkmode .bar {
+  background: #f9f9f9;
 }
 .bar.top { top: 12px; }
 .bar.middle { top: 21px; }
@@ -122,24 +128,13 @@ body.darkmode .page-gradient {
   transform: translateX(-50%) rotate(-45deg);
   top: 21px;
 }
-body.darkmode #modeTrigger {
-  background: #f9f9f9;
-}
-body.darkmode .bar {
-  background: #111;
-}
 
 .mode-icons {
   display: flex;
   gap: 12px;
-  opacity: 0;
-  transform: translateY(20px);
   pointer-events: none;
-  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 .mode-icons.active {
-  opacity: 1;
-  transform: translateY(0);
   pointer-events: auto;
 }
 .mode-icons button {
@@ -155,8 +150,20 @@ body.darkmode .bar {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background-color 0.5s ease, color 0.5s ease, opacity 0.3s ease;
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease, background-color 0.5s ease, color 0.5s ease;
 }
+.mode-icons.active button {
+  opacity: 1;
+  transform: translateX(0);
+}
+.mode-icons button:nth-child(1) { transition-delay: 0.05s; }
+.mode-icons button:nth-child(2) { transition-delay: 0.1s; }
+.mode-icons button:nth-child(3) { transition-delay: 0.15s; }
+.mode-icons button:nth-child(4) { transition-delay: 0.2s; }
+.mode-icons button:nth-child(5) { transition-delay: 0.25s; }
+
 body.darkmode .mode-icons button {
   background: #111;
   color: #f9f9f9;
