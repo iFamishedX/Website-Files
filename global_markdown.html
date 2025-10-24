@@ -1,197 +1,240 @@
-<!-- Background layers -->
-<div class="page-bg"></div>
-<div class="page-gradient"></div>
-
-<!-- Toggle + mode buttons -->
-<div class="mode-toggle-wrapper">
-  <button id="modeTrigger" aria-label="Toggle modes">
-    <div class="bar top"></div>
-    <div class="bar middle"></div>
-    <div class="bar bottom"></div>
-  </button>
-  <div class="mode-icons" id="modeIcons">
-    <button data-mode="sunrise" data-tooltip="Sunrise"><i class="fa-solid fa-cloud-sun"></i></button>
-    <button data-mode="noon" data-tooltip="Noon"><i class="fa-solid fa-sun"></i></button>
-    <button data-mode="dusk" data-tooltip="Dusk"><i class="fa-solid fa-moon"></i></button>
-    <button data-mode="night" data-tooltip="Night"><i class="fa-solid fa-star"></i></button>
-    <button data-mode="auto" data-tooltip="Auto Mode"><i class="fa-solid fa-clock"></i></button>
-  </div>
-</div>
+<!-- Markdown container -->
+<div id="card-container" class="markdown-body"></div>
 
 <style>
-:root {
-  color-scheme: light dark;
-}
-
 body {
-  margin: 0;
   font-family: 'Work Sans', sans-serif;
-  color: black;
-  background-color: #f5f5f5;
-  transition: color 0.5s ease, background-color 0.5s ease;
+  padding: 0;
+  margin: 0;
+  background: #ffffff;
+  color: #000;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 body.darkmode {
-  color: white;
-  background-color: #111;
+  background: #121212;
+  color: #f0f0f0;
 }
 
 .markdown-body {
-  background-color: #ffffff;
+  background-color: transparent;
+  padding: 20px;
   transition: background-color 0.5s ease;
 }
 body.darkmode .markdown-body {
-  background-color: #1a1a1a;
+  background-color: transparent;
 }
 
-.page-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  transition: background-image 0.4s ease;
+#card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 20px;
 }
 
-.page-gradient {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  background-image: linear-gradient(to top, #0000004F 0%, #0000001A 100%);
-  pointer-events: none;
-  transition: opacity 0.4s ease;
-  opacity: 1;
-}
-body.darkmode .page-gradient {
-  opacity: 0;
-}
-
-.mode-toggle-wrapper {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 1000;
+.card {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   display: flex;
-  align-items: center;
-  flex-direction: row-reverse;
-  gap: 12px;
+  flex-direction: column;
+  transition: background-color 0.5s ease, border-color 0.5s ease;
+}
+body.darkmode .card {
+  background-color: rgba(30, 30, 30, 0.85);
+  border-color: #333;
 }
 
-#modeTrigger {
-  position: relative;
-  width: 44px;
-  height: 44px;
-  background: black;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background-color 0.5s ease;
-  animation: slideUp 0.6s ease-out forwards;
-  animation-delay: 0.5s;
-  opacity: 0;
-  transform: translateY(20px);
+.card h1, .card h2, .card h3 {
+  font-weight: 600;
+  margin: 0 0 8px;
 }
-@keyframes slideUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.card h1 { font-size: 20px; }
+.card h2 { font-size: 18px; }
+.card h3 { font-size: 16px; }
+
+.card p {
+  font-size: 14px;
+  color: #333;
+  margin: 0 0 8px;
+  transition: color 0.5s ease;
+}
+body.darkmode .card p {
+  color: #ddd;
 }
 
-.bar {
-  position: absolute;
-  left: 50%;
-  width: 20px;
-  height: 2px;
-  background: white;
-  transform: translateX(-50%);
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-.bar.top { top: 12px; }
-.bar.middle { top: 21px; }
-.bar.bottom { top: 30px; }
-#modeTrigger.active .top {
-  transform: translateX(-50%) rotate(45deg);
-  top: 21px;
-}
-#modeTrigger.active .middle {
-  opacity: 0;
-}
-#modeTrigger.active .bottom {
-  transform: translateX(-50%) rotate(-45deg);
-  top: 21px;
-}
-body.darkmode #modeTrigger {
-  background: white;
-}
-body.darkmode .bar {
-  background: black;
-}
-
-.mode-icons {
-  display: flex;
-  gap: 12px;
-  opacity: 0;
-  transform: translateX(20px);
-  pointer-events: none;
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-.mode-icons.active {
-  opacity: 1;
-  transform: translateX(0);
-  pointer-events: auto;
-}
-.mode-icons button {
-  position: relative;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: black;
-  color: white;
-  border: none;
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
+.card a {
+  display: inline-block;
+  margin-top: 10px;
+  background-color: #962F30;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
   transition: background-color 0.5s ease, color 0.5s ease;
 }
-.mode-icons button i {
-  position: relative;
-  top: -1px;
-}
-body.darkmode .mode-icons button {
-  background: white;
-  color: black;
+body.darkmode .card a {
+  background-color: #b84a4c;
 }
 
-.mode-icons button::after {
-  content: attr(data-tooltip);
+.changelog {
+  display: none;
+  margin-top: 10px;
+  font-size: 14px;
+  background: #f9f9f9;
+  color: #000;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+body.darkmode .changelog {
+  background: #1e1e1e;
+  color: #f0f0f0;
+  border-color: #333;
+}
+
+.changelog h1, .changelog h2, .changelog h3 {
+  font-weight: 600;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  font-size: 1.2em;
+}
+
+.changelog p {
+  margin: 0.5em 0;
+}
+
+.changelog ul {
+  list-style: none;
+  padding-left: 12px;
+  margin: 0.5em 0;
+}
+.changelog ul li {
+  position: relative;
+  padding-left: 14px;
+  margin-bottom: 4px;
+}
+.changelog ul li::before {
   position: absolute;
-  bottom: 110%;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 6px 10px;
-  font-size: 12px;
-  border-radius: 6px;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  background-color: #222;
-  color: #fff;
-  transition: opacity 0.3s ease, background-color 0.5s ease, color 0.5s ease;
+  left: 0;
+  color: #555;
+  content: "•";
+  transition: color 0.5s ease;
 }
-body.darkmode .mode-icons button::after {
-  background-color: #eee;
-  color: #111;
+body.darkmode .changelog ul li::before {
+  color: #aaa;
 }
-.mode-icons button:hover::after {
-  opacity: 1;
+
+.changelog ul ul li::before { content: "◦"; }
+.changelog ul ul ul li::before { content: "▸"; }
+.changelog ul ul ul ul li::before { content: "•"; }
+.changelog ul ul ul ul ul li::before { content: "◦"; }
+.changelog ul ul ul ul ul ul li::before { content: "▸"; }
+
+.changelog ol {
+  padding-left: 16px;
+  margin: 0.5em 0;
+}
+
+.changelog pre {
+  background: #f6f8fa;
+  color: #24292f;
+  padding: 10px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 0;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+body.darkmode .changelog pre {
+  background: #2a2a2a;
+  color: #f0f0f0;
+}
+
+.changelog code {
+  font-family: monospace;
+  font-size: 13px;
+}
+
+.changelog details {
+  margin: 1em 0;
+  padding: 0.5em;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f0f0f0;
+  transition: background-color 0.5s ease, border-color 0.5s ease;
+}
+body.darkmode .changelog details {
+  background: #2a2a2a;
+  border-color: #555;
+}
+
+.changelog summary {
+  cursor: pointer;
+  font-weight: 600;
 }
 </style>
+
+<script>
+marked.setOptions({ gfm: true, breaks: true });
+
+const repo = "iFamishedX/Website-Markdown-Files";
+const branch = "main";
+const container = document.getElementById("card-container");
+
+fetch(`https://api.github.com/repos/${repo}/contents`)
+  .then(res => res.json())
+  .then(files => {
+    const mdFiles = files.filter(f => f.name.endsWith(".md"));
+    if (mdFiles.length === 0) {
+      container.innerHTML = `<div class="card"><h3>No markdown files found</h3></div>`;
+      return;
+    }
+
+    mdFiles.forEach(file => {
+      const timestamp = Date.now();
+      const rawUrl = `https://raw.githubusercontent.com/${repo}/${branch}/${file.name}?t=${timestamp}`;
+      fetch(rawUrl)
+        .then(res => res.ok ? res.text() : Promise.reject("Not found"))
+        .then(text => {
+          const lines = text.split("\n");
+          const title = lines[0] || file.name;
+          const description = lines[1] || "No description";
+          const bodyLines = lines.slice(2).join("\n");
+          const bodyHTML = bodyLines ? marked.parse(bodyLines) : "<p>No body content</p>";
+
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            ${marked.parse(title)}
+            ${marked.parse(description)}
+            <a href="#" onclick="toggleChangelog(this); return false;">Show full</a>
+            <div class="changelog">${bodyHTML}</div>
+          `;
+          container.appendChild(card);
+        })
+        .catch(err => {
+          const errorCard = document.createElement("div");
+          errorCard.className = "card";
+          errorCard.innerHTML = `<h3>${file.name}</h3><p>Error loading file: ${err}</p>`;
+          container.appendChild(errorCard);
+        });
+    });
+  })
+  .catch(err => {
+    container.innerHTML = `<div class="card"><h3>Error fetching file list</h3><p>${err}</p></div>`;
+  });
+
+function toggleChangelog(link) {
+  const log = link.nextElementSibling;
+  if (log.style.display === "none" || !log.style.display) {
+    log.style.display = "block";
+    link.textContent = "Hide full";
+  } else {
+    log.style.display = "none";
+    link.textContent = "Show full";
+  }
+}
+</script>
