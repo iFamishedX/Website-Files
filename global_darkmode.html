@@ -26,25 +26,17 @@
 body {
   margin: 0;
   font-family: 'Work Sans', sans-serif;
-  color: black;
+  color: #111;
   background-color: #f5f5f5;
   transition: color 0.5s ease, background-color 0.5s ease;
 }
 body.darkmode {
-  color: white;
+  color: #f9f9f9;
   background-color: #111;
 }
 body.transitioning .mode-icons button {
   pointer-events: none;
   opacity: 0.6;
-}
-
-.markdown-body {
-  background-color: #ffffff;
-  transition: background-color 0.5s ease;
-}
-body.darkmode .markdown-body {
-  background-color: #1a1a1a;
 }
 
 .page-bg {
@@ -91,7 +83,7 @@ body.darkmode .page-gradient {
   position: relative;
   width: 44px;
   height: 44px;
-  background: black;
+  background: #111;
   border: none;
   border-radius: 50%;
   cursor: pointer;
@@ -112,7 +104,7 @@ body.darkmode .page-gradient {
   left: 50%;
   width: 20px;
   height: 2px;
-  background: white;
+  background: #f9f9f9;
   transform: translateX(-50%);
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
@@ -131,10 +123,10 @@ body.darkmode .page-gradient {
   top: 21px;
 }
 body.darkmode #modeTrigger {
-  background: white;
+  background: #f9f9f9;
 }
 body.darkmode .bar {
-  background: black;
+  background: #111;
 }
 
 .mode-icons {
@@ -143,10 +135,11 @@ body.darkmode .bar {
   opacity: 0;
   transform: translateY(20px);
   pointer-events: none;
-  animation: slideUp 0.6s ease-out forwards;
-  animation-delay: 0.5s;
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 .mode-icons.active {
+  opacity: 1;
+  transform: translateY(0);
   pointer-events: auto;
 }
 .mode-icons button {
@@ -206,12 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const trigger = document.getElementById("modeTrigger");
   const icons = document.getElementById("modeIcons");
 
-  const backgrounds = {
-    sunrise: "https://i.imgur.com/JWktEJI.png",
-    noon: "https://i.imgur.com/w4tiyPb.png",
-    dusk: "https://i.imgur.com/8lKavoX.png",
-    night: "https://i.imgur.com/2KsSuHL.png"
-  };
+  const backgrounds = window.__darkmodeBackgrounds || {};
 
   function resolveMode(mode) {
     if (mode === "auto") {
