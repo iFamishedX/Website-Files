@@ -28,16 +28,21 @@ body {
   font-family: 'Work Sans', sans-serif;
   color: black;
   background-color: #f5f5f5;
-  transition: color 2s ease, background-color 2s ease;
+  transition: color 0.5s ease, background-color 0.5s ease;
 }
 body.darkmode {
   color: white;
   background-color: #111;
 }
 
+body.transitioning .mode-icons button {
+  pointer-events: none;
+  opacity: 0.6;
+}
+
 .markdown-body {
   background-color: #ffffff;
-  transition: background-color 2s ease;
+  transition: background-color 0.5s ease;
 }
 body.darkmode .markdown-body {
   background-color: #1a1a1a;
@@ -91,7 +96,7 @@ body.darkmode .page-gradient {
   border: none;
   border-radius: 50%;
   cursor: pointer;
-  transition: background-color 2s ease;
+  transition: background-color 0.5s ease;
   animation: slideUp 0.6s ease-out forwards;
   animation-delay: 0.5s;
   opacity: 0;
@@ -152,23 +157,23 @@ body.darkmode .bar {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: black;
-  color: white;
+  background: #f9f9f9;
+  color: #111;
   border: none;
   font-size: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background-color 0.5s ease, color 0.5s ease;
+  transition: background-color 0.5s ease, color 0.5s ease, opacity 0.3s ease;
+}
+body.darkmode .mode-icons button {
+  background: #111;
+  color: #f9f9f9;
 }
 .mode-icons button i {
   position: relative;
   top: -1px;
-}
-body.darkmode .mode-icons button {
-  background: white;
-  color: black;
 }
 
 .mode-icons button::after {
@@ -195,3 +200,72 @@ body.darkmode .mode-icons button::after {
   opacity: 1;
 }
 </style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const modeButtons = document.querySelectorAll(".mode-icons button");
+  const bg = document.querySelector(".page-bg");
+  const gradient = document.querySelector(".page-gradient");
+  const trigger = document.getElementById("modeTrigger");
+  const icons = document.getElementById("modeIcons");
+
+  const backgrounds = {
+    sunrise: "https://i.imgur.com/JWktEJI.png",
+    noon: "https://i.imgur.com/w4tiyPb.png",
+    dusk: "https://i.imgur.com/8lKavoX.png",
+    night: "https://i.imgur.com/2KsSuHL.png"
+  };
+
+  function resolveMode(mode) {
+    if (mode === "auto") {
+      const hour = new Date().getHours();
+      if (hour >= 5 && hour < 10) return "sunrise";
+      if (hour >= 10 && hour < 17) return "noon";
+      if (hour >= 17 && hour < 21) return "dusk";
+      return "night";
+    }
+    return mode;
+  }
+
+  function applyMode(mode) {
+    document.body.classList.add("transitioning");
+
+    const resolved = resolveMode(mode);
+    const url = backgrounds[resolved];
+    const isDark = ["dusk", "night"].includes(resolved);
+
+    if (bg && url) {
+      bg.style.backgroundImage = `url('${url}')`;
+    }
+
+    if (gradient) {
+      gradient.style.opacity = isDark ? "0" : "1";
+    }
+
+    document.body.classList.toggle("darkmode", isDark);
+    localStorage.setItem("visualMode", mode);
+
+    setTimeout(() => {
+      document.body.classList.remove("transitioning");
+    }, 400); // matches background-image transition
+  }
+
+  if (trigger && icons) {
+    trigger.addEventListener("click", () => {
+      trigger.classList.toggle("active");
+      icons.classList.toggle("active");
+    });
+  }
+
+  const saved = localStorage.getItem("visualMode");
+  const initial = saved && backgrounds[saved] ? saved : "auto";
+  applyMode(initial);
+
+  modeButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const mode = btn.getAttribute("data-mode");
+      applyMode(mode);
+    });
+  });
+});
+</script>
