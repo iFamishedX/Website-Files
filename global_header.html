@@ -2,7 +2,9 @@
 <div class="sticky-header">
   <div class="sticky-left">
     <div class="icon-button home-button delay-1">
-      <i class="fa-solid fa-house" onclick="window.location.href='https://optifineforfabric.com'"></i>
+      <div class="icon-hover">
+        <i class="fa-solid fa-house" onclick="window.location.href='https://optifineforfabric.com'"></i>
+      </div>
       <div class="hover-label home-label">Home</div>
     </div>
   </div>
@@ -25,7 +27,9 @@
   <div class="sticky-right">
     <div class="icon-button download-button delay-6">
       <div class="hover-label download-label">Download</div>
-      <i class="fa-solid fa-download" onclick="window.location.href='https://optifineforfabric.com/download'"></i>
+      <div class="icon-hover">
+        <i class="fa-solid fa-download" onclick="window.location.href='https://optifineforfabric.com/download'"></i>
+      </div>
     </div>
   </div>
 </div>
@@ -112,14 +116,14 @@ body {
   animation: sweepInRight 0.6s ease-out forwards;
 }
 
-.icon-button i {
+.icon-hover i {
   font-size: 27px;
   color: white;
   transition: transform 0.2s ease;
   cursor: pointer;
 }
 
-.icon-button:hover i {
+.icon-hover:hover i {
   transform: scale(1.15);
 }
 
@@ -143,7 +147,7 @@ body {
   transform: translateX(-20px);
 }
 
-.home-button:hover .home-label {
+.home-button .icon-hover:hover + .home-label {
   opacity: 1;
   transform: translateX(0);
 }
@@ -153,7 +157,7 @@ body {
   transform: translateX(20px);
 }
 
-.download-button:hover .download-label {
+.download-button .icon-hover:hover ~ .download-label {
   opacity: 1;
   transform: translateX(0);
 }
