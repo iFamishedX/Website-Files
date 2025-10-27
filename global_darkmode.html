@@ -34,7 +34,8 @@ body.darkmode {
   color: #f9f9f9;
   background-color: #111;
 }
-body.transitioning .mode-icons button {
+body.transitioning .mode-icons button,
+body.transitioning #modeTrigger {
   pointer-events: none;
   opacity: 0.6;
 }
@@ -91,10 +92,13 @@ body.darkmode .page-gradient {
   animation-delay: 0.5s;
   opacity: 0;
   transform: translateY(20px);
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 body.darkmode #modeTrigger {
   background: #111;
+  color: #f9f9f9;
 }
+
 @keyframes slideUp {
   to {
     opacity: 1;
@@ -109,7 +113,7 @@ body.darkmode #modeTrigger {
   height: 2px;
   background: #111;
   transform: translateX(-50%);
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.5s ease;
 }
 body.darkmode .bar {
   background: #f9f9f9;
@@ -255,8 +259,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   modeButtons.forEach(btn => {
     btn.addEventListener("click", () => {
-      const mode = btn.getAttribute("data-mode");
-      applyMode(mode);
+      if (!document.body.classList.contains("transitioning")) {
+        const mode = btn.getAttribute("data-mode");
+        applyMode(mode);
+      }
     });
   });
 });
