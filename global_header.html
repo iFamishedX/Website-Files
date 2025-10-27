@@ -108,14 +108,12 @@ body {
   transform: scale(1.08);
 }
 
-/* Home and download buttons: same sweep timing */
-.home-button,
+/* Home and download buttons: sweep in like center buttons */
+.home-button {
+  animation: sweepInRight 0.6s ease-out 1.0s forwards;
+}
 .download-button {
-  border: none !important;
-  padding: 0 !important;
-  background: none !important;
-  animation: sweepInRight 0.6s ease-out 1.2s forwards;
-  cursor: pointer;
+  animation: sweepInRight 0.6s ease-out 2.0s forwards;
 }
 
 .home-button i,
