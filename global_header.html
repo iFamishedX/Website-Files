@@ -1,30 +1,30 @@
 <!-- Sticky Header -->
 <div class="sticky-header">
   <div class="sticky-left">
-    <div class="icon-button home-button" onclick="window.location.href='https://optifineforfabric.com'">
-      <i class="fa-solid fa-house"></i>
+    <div class="icon-button home-button delay-1">
+      <i class="fa-solid fa-house" onclick="window.location.href='https://optifineforfabric.com'"></i>
       <span class="tooltip">Home</span>
     </div>
   </div>
 
   <div class="sticky-center">
-    <div class="nav-button delay-1" onclick="window.location.href='https://ifamished.com'">
+    <div class="nav-button delay-2" onclick="window.location.href='https://ifamished.com'">
       <i class="fa-solid fa-user"></i> About Me
     </div>
-    <div class="nav-button delay-2" onclick="window.location.href='https://optifineforfabric.com/changelogs'">
+    <div class="nav-button delay-3" onclick="window.location.href='https://optifineforfabric.com/changelogs'">
       <i class="fa-solid fa-list"></i> Changelogs
     </div>
-    <div class="nav-button delay-3" onclick="window.location.href='https://hungersmp.com'">
+    <div class="nav-button delay-4" onclick="window.location.href='https://hungersmp.com'">
       <i class="fa-solid fa-server"></i> Join my server!
     </div>
-    <div class="nav-button delay-4" onclick="window.location.href='https://optifineforfabric.com/analytics'">
+    <div class="nav-button delay-5" onclick="window.location.href='https://optifineforfabric.com/analytics'">
       <i class="fa-solid fa-chart-line"></i> Analytics
     </div>
   </div>
 
   <div class="sticky-right">
-    <div class="icon-button download-button delay-5" onclick="window.location.href='https://optifineforfabric.com/download'">
-      <i class="fa-solid fa-download"></i>
+    <div class="icon-button download-button delay-6">
+      <i class="fa-solid fa-download" onclick="window.location.href='https://optifineforfabric.com/download'"></i>
       <span class="tooltip">Download</span>
     </div>
   </div>
@@ -110,7 +110,6 @@ body {
 .icon-button {
   position: relative;
   display: inline-block;
-  cursor: pointer;
   opacity: 0;
   transform: translateX(40px);
   animation: sweepInRight 0.6s ease-out forwards;
@@ -120,6 +119,7 @@ body {
   font-size: 27px;
   color: white;
   transition: transform 0.2s ease;
+  cursor: pointer;
 }
 
 .icon-button:hover i {
@@ -129,7 +129,7 @@ body {
 /* Tooltip styling */
 .tooltip {
   position: absolute;
-  bottom: -30px;
+  bottom: -34px;
   left: 50%;
   transform: translateX(-50%);
   background: white;
@@ -140,11 +140,25 @@ body {
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
+  max-width: 120px;
+  text-align: center;
   transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 1000;
 }
 
 .icon-button:hover .tooltip {
   animation: tooltipFade 0.3s ease-out forwards;
+}
+
+/* Prevent tooltip overflow */
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom-color: white;
 }
 
 /* Entrance delays */
@@ -153,4 +167,5 @@ body {
 .delay-3 { animation-delay: 1.6s; }
 .delay-4 { animation-delay: 1.8s; }
 .delay-5 { animation-delay: 2.0s; }
+.delay-6 { animation-delay: 2.2s; }
 </style>
