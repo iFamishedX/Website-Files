@@ -2,10 +2,8 @@
 <div class="sticky-header">
   <div class="sticky-left">
     <div class="icon-button home-button delay-1">
-      <div class="icon-hover">
-        <i class="fa-solid fa-house" onclick="window.location.href='https://optifineforfabric.com'"></i>
-        <div class="hover-label home-label">Home</div>
-      </div>
+      <i class="fa-solid fa-house icon-trigger" onclick="window.location.href='https://optifineforfabric.com'"></i>
+      <div class="hover-label home-label">Home</div>
     </div>
   </div>
 
@@ -26,10 +24,8 @@
 
   <div class="sticky-right">
     <div class="icon-button download-button delay-6">
-      <div class="icon-hover">
-        <div class="hover-label download-label">Download</div>
-        <i class="fa-solid fa-download" onclick="window.location.href='https://optifineforfabric.com/download'"></i>
-      </div>
+      <div class="hover-label download-label">Download</div>
+      <i class="fa-solid fa-download icon-trigger" onclick="window.location.href='https://optifineforfabric.com/download'"></i>
     </div>
   </div>
 </div>
@@ -115,20 +111,14 @@ body {
   animation: sweepInRight 0.6s ease-out forwards;
 }
 
-.icon-hover {
-  display: inline-flex;
-  align-items: center;
-  position: relative;
-}
-
-.icon-hover i {
+.icon-trigger {
   font-size: 27px;
   color: white;
   transition: transform 0.2s ease;
   cursor: pointer;
 }
 
-.icon-hover:hover i {
+.icon-trigger:hover {
   transform: scale(1.15);
 }
 
@@ -144,6 +134,7 @@ body {
   border: 1px solid white;
   opacity: 0;
   pointer-events: none;
+  position: relative;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
@@ -153,7 +144,7 @@ body {
   transform: translateX(-20px);
 }
 
-.icon-hover:hover .home-label {
+.home-button .icon-trigger:hover + .home-label {
   opacity: 1;
   transform: translateX(0);
 }
@@ -164,7 +155,7 @@ body {
   transform: translateX(20px);
 }
 
-.icon-hover:hover .download-label {
+.download-button .icon-trigger:hover ~ .download-label {
   opacity: 1;
   transform: translateX(0);
 }
