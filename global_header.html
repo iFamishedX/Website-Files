@@ -26,10 +26,10 @@
 
   <div class="sticky-right">
     <div class="icon-button download-button delay-6">
+      <div class="hover-label download-label">Download</div>
       <div class="icon-hover">
         <i class="fa-solid fa-download" onclick="window.location.href='https://optifineforfabric.com/download'"></i>
       </div>
-      <div class="hover-label download-label">Download</div>
     </div>
   </div>
 </div>
@@ -142,7 +142,7 @@ body {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* Home label: slides in from left */
+/* Home label: slides in from left (appears to right of icon) */
 .home-label {
   transform: translateX(-20px);
 }
@@ -152,7 +152,7 @@ body {
   transform: translateX(0);
 }
 
-/* Download label: slides in from right */
+/* Download label: slides in from right (appears to left of icon) */
 .download-label {
   transform: translateX(20px);
 }
