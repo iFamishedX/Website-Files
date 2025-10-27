@@ -116,6 +116,7 @@ body {
   color: white;
   transition: transform 0.2s ease;
   cursor: pointer;
+  z-index: 2;
 }
 
 .icon-trigger:hover {
@@ -134,30 +135,34 @@ body {
   border: 1px solid white;
   opacity: 0;
   pointer-events: none;
-  position: relative;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 /* Home label: appears to right, slides in from left */
 .home-label {
+  left: 100%;
   margin-left: 8px;
-  transform: translateX(-20px);
+  transform: translateX(-20px) translateY(-50%);
 }
 
-.home-button .icon-trigger:hover + .home-label {
+.home-button .icon-trigger:hover ~ .home-label {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateX(0) translateY(-50%);
 }
 
 /* Download label: appears to left, slides in from right */
 .download-label {
+  right: 100%;
   margin-right: 8px;
-  transform: translateX(20px);
+  transform: translateX(20px) translateY(-50%);
 }
 
 .download-button .icon-trigger:hover ~ .download-label {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateX(0) translateY(-50%);
 }
 
 /* Entrance delays */
