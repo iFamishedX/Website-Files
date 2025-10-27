@@ -3,7 +3,7 @@
   <div class="sticky-left">
     <div class="icon-button home-button delay-1">
       <i class="fa-solid fa-house" onclick="window.location.href='https://optifineforfabric.com'"></i>
-      <div class="tooltip">Home</div>
+      <div class="hover-label home-label">Home</div>
     </div>
   </div>
 
@@ -24,8 +24,8 @@
 
   <div class="sticky-right">
     <div class="icon-button download-button delay-6">
+      <div class="hover-label download-label">Download</div>
       <i class="fa-solid fa-download" onclick="window.location.href='https://optifineforfabric.com/download'"></i>
-      <div class="tooltip">Download</div>
     </div>
   </div>
 </div>
@@ -104,7 +104,9 @@ body {
 /* Icon-only buttons */
 .icon-button {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   opacity: 0;
   transform: translateX(40px);
   animation: sweepInRight 0.6s ease-out forwards;
@@ -121,27 +123,38 @@ body {
   transform: scale(1.15);
 }
 
-/* Tooltip styling */
-.tooltip {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(8px);
-  background: white;
-  color: black;
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-size: 13px;
+/* Hover labels */
+.hover-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 6px 12px;
+  border-radius: 12px;
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  z-index: 1000;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.icon-button:hover .tooltip {
+/* Home label: appears to the right */
+.home-label {
+  transform: translateX(-10px);
+}
+
+.home-button:hover .home-label {
   opacity: 1;
-  transform: translateX(-50%) translateY(4px);
+  transform: translateX(0);
+}
+
+/* Download label: appears to the left */
+.download-label {
+  transform: translateX(10px);
+}
+
+.download-button:hover .download-label {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* Entrance delays (0.4s sooner) */
