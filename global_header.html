@@ -24,8 +24,8 @@
 
   <div class="sticky-right">
     <div class="icon-button download-button delay-6">
-      <div class="hover-label download-label">Download</div>
       <i class="fa-solid fa-download icon-trigger" onclick="window.location.href='https://optifineforfabric.com/download'"></i>
+      <div class="hover-label download-label">Download</div>
     </div>
   </div>
 </div>
@@ -148,7 +148,7 @@ body {
   transform: translateX(-20px) translateY(-50%);
 }
 
-.home-button .icon-trigger:hover ~ .home-label {
+.home-button .icon-trigger:hover + .home-label {
   opacity: 1;
   transform: translateX(0) translateY(-50%);
 }
@@ -160,7 +160,7 @@ body {
   transform: translateX(20px) translateY(-50%);
 }
 
-.download-button .icon-trigger:hover ~ .download-label {
+.download-button .icon-trigger:hover + .download-label {
   opacity: 1;
   transform: translateX(0) translateY(-50%);
 }
