@@ -1,28 +1,28 @@
 <!-- Sticky Header -->
 <div class="sticky-header">
   <div class="sticky-left">
-    <a href="https://optifineforfabric.com" class="home-button">
+    <a href="https://optifineforfabric.com" class="home-button animate-in delay-1">
       <i class="fa-solid fa-house"></i>
     </a>
   </div>
 
   <div class="sticky-center">
-    <a href="https://ifamished.com">
+    <a href="https://ifamished.com" class="animate-in delay-2">
       <i class="fa-solid fa-user"></i> About Me
     </a>
-    <a href="https://optifineforfabric.com/changelogs">
+    <a href="https://optifineforfabric.com/changelogs" class="animate-in delay-3">
       <i class="fa-solid fa-list"></i> Changelogs
     </a>
-    <a href="https://hungersmp.com">
+    <a href="https://hungersmp.com" class="animate-in delay-4">
       <i class="fa-solid fa-server"></i> Join my server!
     </a>
-    <a href="https://optifineforfabric.com/analytics">
+    <a href="https://optifineforfabric.com/analytics" class="animate-in delay-5">
       <i class="fa-solid fa-chart-line"></i> Analytics
     </a>
   </div>
 
   <div class="sticky-right">
-    <a href="https://optifineforfabric.com/download" class="download-button">
+    <a href="https://optifineforfabric.com/download" class="download-button animate-in delay-6">
       <i class="fa-solid fa-download"></i>
     </a>
   </div>
@@ -45,11 +45,6 @@ body {
   100% { opacity: 1; transform: translateX(0); }
 }
 
-@keyframes softFade {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
-}
-
 .sticky-header {
   position: fixed;
   top: 0;
@@ -67,11 +62,6 @@ body {
   animation: fadeIn 0.6s ease-out forwards;
 }
 
-.sticky-header.fade-only {
-  animation: softFade 0.4s ease-out forwards;
-  transform: none !important;
-}
-
 .sticky-left,
 .sticky-right {
   display: flex;
@@ -85,7 +75,7 @@ body {
   flex: 1;
 }
 
-/* Shared button styles */
+/* Base button styles */
 .sticky-header a {
   color: white;
   text-decoration: none;
@@ -96,10 +86,9 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  transform: translateX(40px);
   opacity: 0;
-  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
   cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 /* Center buttons keep borders */
@@ -107,33 +96,19 @@ body {
   border: 1px solid white;
 }
 
-/* Hover effect for all buttons */
-.sticky-header a:hover {
-  background-color: white;
-  color: #000;
-  transform: scale(1.08);
-}
-
-/* Home and download buttons: no border, synced sweep-in */
-.home-button {
-  padding: 0 !important;
-  background: none !important;
-  border: none !important;
-  animation: sweepInRight 0.6s ease-out 1.2s forwards;
-}
-
+/* Home and download buttons: no border */
+.home-button,
 .download-button {
   padding: 0 !important;
   background: none !important;
   border: none !important;
-  animation: sweepInRight 0.6s ease-out 2.0s forwards;
 }
 
-.home-button i,
-.download-button i {
-  font-size: 27px;
-  color: white;
-  transition: transform 0.2s ease;
+/* Hover effect */
+.sticky-header a:hover {
+  background-color: white;
+  color: #000;
+  transform: scale(1.08);
 }
 
 .home-button:hover i,
@@ -142,18 +117,25 @@ body {
   color: white;
 }
 
-/* Animate center buttons in sequence */
-.sticky-center a:nth-child(1) { animation: sweepInRight 0.6s ease-out 1.2s forwards; }
-.sticky-center a:nth-child(2) { animation: sweepInRight 0.6s ease-out 1.4s forwards; }
-.sticky-center a:nth-child(3) { animation: sweepInRight 0.6s ease-out 1.6s forwards; }
-.sticky-center a:nth-child(4) { animation: sweepInRight 0.6s ease-out 1.8s forwards; }
-
-/* Disable animations if fade-only is active */
-.sticky-header.fade-only a,
-.sticky-header.fade-only .home-button,
-.sticky-header.fade-only .download-button {
-  animation: none !important;
-  opacity: 1 !important;
-  transform: none !important;
+/* Icon styles */
+.home-button i,
+.download-button i {
+  font-size: 27px;
+  color: white;
+  transition: transform 0.2s ease;
 }
+
+/* Entrance animation */
+.animate-in {
+  animation: sweepInRight 0.6s ease-out forwards;
+  transform: translateX(40px);
+}
+
+/* Delays for sequencing */
+.delay-1 { animation-delay: 1.2s; }
+.delay-2 { animation-delay: 1.2s; }
+.delay-3 { animation-delay: 1.4s; }
+.delay-4 { animation-delay: 1.6s; }
+.delay-5 { animation-delay: 1.8s; }
+.delay-6 { animation-delay: 2.0s; }
 </style>
