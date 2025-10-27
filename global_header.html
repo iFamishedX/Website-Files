@@ -1,30 +1,30 @@
 <!-- Sticky Header -->
 <div class="sticky-header">
   <div class="sticky-left">
-    <a href="https://optifineforfabric.com" class="home-button animate-in delay-1">
+    <div class="home-button" onclick="window.location.href='https://optifineforfabric.com'">
       <i class="fa-solid fa-house"></i>
-    </a>
+    </div>
   </div>
 
   <div class="sticky-center">
-    <a href="https://ifamished.com" class="animate-in delay-2">
+    <div class="nav-button delay-1" onclick="window.location.href='https://ifamished.com'">
       <i class="fa-solid fa-user"></i> About Me
-    </a>
-    <a href="https://optifineforfabric.com/changelogs" class="animate-in delay-3">
+    </div>
+    <div class="nav-button delay-2" onclick="window.location.href='https://optifineforfabric.com/changelogs'">
       <i class="fa-solid fa-list"></i> Changelogs
-    </a>
-    <a href="https://hungersmp.com" class="animate-in delay-4">
+    </div>
+    <div class="nav-button delay-3" onclick="window.location.href='https://hungersmp.com'">
       <i class="fa-solid fa-server"></i> Join my server!
-    </a>
-    <a href="https://optifineforfabric.com/analytics" class="animate-in delay-5">
+    </div>
+    <div class="nav-button delay-4" onclick="window.location.href='https://optifineforfabric.com/analytics'">
       <i class="fa-solid fa-chart-line"></i> Analytics
-    </a>
+    </div>
   </div>
 
   <div class="sticky-right">
-    <a href="https://optifineforfabric.com/download" class="download-button animate-in delay-6">
+    <div class="download-button delay-5" onclick="window.location.href='https://optifineforfabric.com/download'">
       <i class="fa-solid fa-download"></i>
-    </a>
+    </div>
   </div>
 </div>
 
@@ -75,40 +75,43 @@ body {
   flex: 1;
 }
 
-/* Base button styles */
-.sticky-header a {
+/* Shared button styles */
+.nav-button,
+.home-button,
+.download-button {
   color: white;
-  text-decoration: none;
-  padding: 8px 16px;
-  border-radius: 16px;
   font-size: 14px;
   font-weight: 500;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  opacity: 0;
+  border-radius: 16px;
   cursor: pointer;
+  opacity: 0;
+  transform: translateX(40px);
   transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  animation: sweepInRight 0.6s ease-out forwards;
 }
 
-/* Center buttons keep borders */
-.sticky-center a {
+/* Center buttons keep borders and padding */
+.nav-button {
   border: 1px solid white;
+  padding: 8px 16px;
 }
 
-/* Home and download buttons: no border */
+/* Home and download buttons: no border, icon-only */
 .home-button,
 .download-button {
-  padding: 0 !important;
-  background: none !important;
-  border: none !important;
+  padding: 0;
+  background: none;
+  border: none;
 }
 
-/* Hover effect */
-.sticky-header a:hover {
-  background-color: white;
-  color: #000;
-  transform: scale(1.08);
+.home-button i,
+.download-button i {
+  font-size: 27px;
+  color: white;
+  transition: transform 0.2s ease;
 }
 
 .home-button:hover i,
@@ -117,25 +120,17 @@ body {
   color: white;
 }
 
-/* Icon styles */
-.home-button i,
-.download-button i {
-  font-size: 27px;
-  color: white;
-  transition: transform 0.2s ease;
+/* Hover effect for center buttons */
+.nav-button:hover {
+  background-color: white;
+  color: black;
+  transform: scale(1.08);
 }
 
-/* Entrance animation */
-.animate-in {
-  animation: sweepInRight 0.6s ease-out forwards;
-  transform: translateX(40px);
-}
-
-/* Delays for sequencing */
+/* Entrance delays */
 .delay-1 { animation-delay: 1.2s; }
-.delay-2 { animation-delay: 1.2s; }
-.delay-3 { animation-delay: 1.4s; }
-.delay-4 { animation-delay: 1.6s; }
-.delay-5 { animation-delay: 1.8s; }
-.delay-6 { animation-delay: 2.0s; }
+.delay-2 { animation-delay: 1.4s; }
+.delay-3 { animation-delay: 1.6s; }
+.delay-4 { animation-delay: 1.8s; }
+.delay-5 { animation-delay: 2.0s; }
 </style>
