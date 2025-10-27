@@ -372,3 +372,528 @@ Code: 504
 Title: Timeout Error
 Text: The request expired in transit.
 Button: Send again
+
+Code: 400
+Title: Bad Request
+Text: Malformed request. Like a creeper in a tuxedo.
+Button: Try again properly
+
+Code: 401
+Title: Unauthorized Access
+Text: You need a higher clearance level to enter.
+Button: Level up
+
+Code: 403
+Title: You shall not pass.
+Text: Access denied by the server overlords.
+Button: Return to safety
+
+Code: 404
+Title: The page you seek is hidden in the shadows.
+Text: Only those who know the way can find it.
+Button: Find the way
+
+Code: 405
+Title: Method Not Allowed
+Text: This page doesn’t accept that kind of request.
+Button: Try a gentler approach
+
+Code: 418
+Title: I'm a Teapot
+Text: This server refuses to brew coffee. It’s a teapot.
+Button: Respect the brew
+
+Code: 429
+Title: Too Many Requests
+Text: You’re clicking faster than a speedrunner.
+Button: Take a breather
+
+Code: 451
+Title: Unavailable for Legal Reasons
+Text: This page was removed by the Grand Council.
+Button: Appeal to the elders
+
+Code: 500
+Title: Server Overheated
+Text: Too many redstone loops. Try again later.
+Button: Cool it down
+
+Code: 502
+Title: Bad Gateway
+Text: The server tried to talk to another server. It didn’t go well.
+Button: Retry the handshake
+
+Code: 503
+Title: Server on Cooldown
+Text: It’s taking a nap. Come back later.
+Button: Wait it out
+
+Code: 504
+Title: Gateway Timeout
+Text: The portal stayed open too long and collapsed.
+Button: Open a new one
+
+Code: 511
+Title: Network Authentication Required
+Text: You must prove your worth to enter this realm.
+Button: Authenticate
+
+Code: 520
+Title: Unknown Error
+Text: Something broke. We don’t know what.
+Button: Roll for insight
+
+Code: 530
+Title: Origin Unreachable
+Text: The server vanished into the void.
+Button: Reconnect to reality
+
+Code: 598
+Title: Network Read Timeout
+Text: The server got bored waiting for you.
+Button: Try again faster
+
+Code: 599
+Title: Network Connect Timeout
+Text: Connection attempt timed out. The signal was lost in the fog.
+Button: Ping again
+
+Code: 301
+Title: Moved Permanently
+Text: This page packed its bags and left for good.
+Button: Follow the trail
+
+Code: 302
+Title: Found Elsewhere
+Text: The treasure you seek has shifted location.
+Button: Track it down
+
+Code: 307
+Title: Temporary Redirect
+Text: The portal is unstable. You’re being rerouted.
+Button: Trust the detour
+
+Code: 308
+Title: Permanent Redirect
+Text: The server has changed its address. Forever.
+Button: Update your map
+
+Code: 100
+Title: Continue
+Text: The server is listening. Keep going.
+Button: Proceed
+
+Code: 101
+Title: Switching Protocols
+Text: The server is changing languages mid-conversation.
+Button: Adapt
+
+Code: 204
+Title: No Content
+Text: The server responded, but said nothing.
+Button: Try again anyway
+
+Code: 206
+Title: Partial Content
+Text: You got a piece of the puzzle. Not the whole thing.
+Button: Request the rest
+
+Code: 417
+Title: Expectation Failed
+Text: The server didn’t live up to your hopes.
+Button: Lower expectations
+
+Code: 426
+Title: Upgrade Required
+Text: You need better gear to enter this zone.
+Button: Upgrade now
+
+Code: 510
+Title: Not Extended
+Text: The server needs more info to proceed.
+Button: Extend the request
+
+Code: 103
+Title: Early Hints
+Text: The server is whispering clues before the real answer.
+Button: Listen closely
+
+Code: 400
+Title: Bad Request
+Text: Malformed URL or request.
+Button: Try again properly
+
+Code: 400
+Title: Syntax Error
+Text: The server couldn’t parse your spell.
+Button: Recast
+
+Code: 400
+Title: Broken Transmission
+Text: The signal was scrambled on arrival.
+Button: Send again
+
+Code: 400
+Title: Invalid Input
+Text: The server didn’t understand your intent.
+Button: Clarify
+
+Code: 401
+Title: Unauthorized
+Text: Requires login or authentication.
+Button: Log in
+
+Code: 401
+Title: Access Denied
+Text: You must prove your identity to proceed.
+Button: Authenticate
+
+Code: 401
+Title: Credentials Missing
+Text: The gate won’t open without a key.
+Button: Provide access
+
+Code: 401
+Title: Restricted Zone
+Text: You need clearance to enter this area.
+Button: Request access
+
+Code: 403
+Title: Forbidden
+Text: Access denied to a resource.
+Button: Return to safety
+
+Code: 403
+Title: Vault Locked
+Text: You’re not authorized to open this chamber.
+Button: Back away
+
+Code: 403
+Title: No Entry
+Text: This area is off-limits to your account.
+Button: Retreat
+
+Code: 403
+Title: Permission Denied
+Text: The server rejected your request.
+Button: Try another path
+
+Code: 404
+Title: Not Found
+Text: Page or asset doesn’t exist.
+Button: Return home
+
+Code: 404
+Title: Lost in the Fog
+Text: The destination vanished before you arrived.
+Button: Search again
+
+Code: 404
+Title: Missing Link
+Text: The page you seek has slipped through the cracks.
+Button: Go back
+
+Code: 404
+Title: Nothing Here
+Text: You’ve reached an empty corner of the web.
+Button: Explore elsewhere
+
+Code: 404
+Title: Ghost Page
+Text: This page once existed. Now it’s legend.
+Button: Summon another
+
+Code: 404
+Title: Portal Closed
+Text: The gateway you tried to enter no longer exists.
+Button: Open a new one
+
+Code: 404
+Title: Page Not Found
+Text: The server searched high and low. No luck.
+Button: Try again
+
+Code: 404
+Title: Vanished
+Text: The content you requested has disappeared.
+Button: Return to base
+
+Code: 404
+Title: Off the Map
+Text: This route leads to nowhere.
+Button: Recalculate
+
+Code: 404
+Title: Dead End
+Text: You’ve reached the edge of the known internet.
+Button: Turn around
+
+Code: 405
+Title: Method Not Allowed
+Text: Non-GET request blocked by Worker.
+Button: Use GET
+
+Code: 405
+Title: Wrong Approach
+Text: This page doesn’t accept that kind of request.
+Button: Try again
+
+Code: 405
+Title: Invalid Method
+Text: The server doesn’t speak that language.
+Button: Rephrase
+
+Code: 405
+Title: Request Rejected
+Text: That method is not permitted here.
+Button: Use a different tool
+
+Code: 500
+Title: Internal Server Error
+Text: Unexpected failure from subdomain.
+Button: Retry
+
+Code: 500
+Title: Server Crash
+Text: Something broke behind the scenes.
+Button: Reload
+
+Code: 500
+Title: Critical Failure
+Text: The server encountered a fatal error.
+Button: Try again later
+
+Code: 500
+Title: Glitch in the Matrix
+Text: The system hiccupped. It’s not your fault.
+Button: Reset
+
+Code: 530
+Title: Origin Error
+Text: Timeout or unreachable origin (e.g. Carrd fails).
+Button: Reconnect
+
+Code: 530
+Title: Server Vanished
+Text: The origin server disappeared mid-request.
+Button: Retry
+
+Code: 530
+Title: Cloudflare Timeout
+Text: The server took too long to respond.
+Button: Ping again
+
+Code: 530
+Title: No Response
+Text: The origin didn’t answer the call.
+Button: Try again
+
+Code: 502
+Title: Bad Gateway
+Text: Subdomain returned an invalid response.
+Button: Retry
+
+Code: 502
+Title: Broken Relay
+Text: The server couldn’t complete the handoff.
+Button: Try again
+
+Code: 502
+Title: Gateway Error
+Text: The middleman failed to deliver.
+Button: Reconnect
+
+Code: 502
+Title: Miscommunication
+Text: The servers misunderstood each other.
+Button: Clarify
+
+Code: 503
+Title: Service Unavailable
+Text: Subdomain is down or overloaded.
+Button: Wait it out
+
+Code: 503
+Title: Server Sleeping
+Text: The service is temporarily offline.
+Button: Try later
+
+Code: 503
+Title: Overloaded
+Text: Too many requests. The server needs a break.
+Button: Pause
+
+Code: 503
+Title: Maintenance Mode
+Text: The server is undergoing repairs.
+Button: Check back soon
+
+Code: 504
+Title: Gateway Timeout
+Text: Subdomain took too long to respond.
+Button: Retry
+
+Code: 504
+Title: Portal Timeout
+Text: The connection window closed before completion.
+Button: Reopen
+
+Code: 504
+Title: Delayed Response
+Text: The server didn’t reply in time.
+Button: Try again
+
+Code: 504
+Title: Timeout Error
+Text: The request expired in transit.
+Button: Send again
+
+Code: 404
+Title: Chunk Not Loaded
+Text: The page is stuck outside your render distance.
+Button: Increase view range
+
+Code: 404
+Title: Block Missing
+Text: This structure had a block here. Now it’s air.
+Button: Replace it
+
+Code: 404
+Title: Entity Not Found
+Text: The mob despawned before you arrived.
+Button: Respawn
+
+Code: 404
+Title: Portal Mislinked
+Text: You entered the Nether. Ended up in the void.
+Button: Rebuild the frame
+
+Code: 404
+Title: Mod Conflict
+Text: Two mods tried to load this page. Neither succeeded.
+Button: Resolve conflict
+
+Code: 404
+Title: Recipe Undefined
+Text: You tried to craft something that doesn’t exist.
+Button: Check JEI
+
+Code: 404
+Title: Dimension Unavailable
+Text: This realm isn’t registered in the config.
+Button: Add it manually
+
+Code: 404
+Title: Server Tick Skipped
+Text: The page missed its update cycle.
+Button: Try again
+
+Code: 404
+Title: Redstone Loop Broken
+Text: The signal didn’t reach the output.
+Button: Rewire
+
+Code: 404
+Title: Texture Missing
+Text: The page loaded. The visuals didn’t.
+Button: Reload resources
+
+Code: 404
+Title: Forge Error
+Text: The mod loader gave up halfway.
+Button: Reinstall Forge
+
+Code: 404
+Title: World Corrupted
+Text: This page was part of a save file. It’s gone now.
+Button: Restore backup
+
+Code: 404
+Title: Biome Not Found
+Text: You searched for a lush cave. Got void instead.
+Button: Reroll seed
+
+Code: 404
+Title: Page Unchunked
+Text: It was here. Then it unloaded.
+Button: Force load
+
+Code: 404
+Title: Page Teleported
+Text: Enderman took it. Probably.
+Button: Hunt it down
+
+Code: 404
+Title: Page in Spectator Mode
+Text: It’s watching you. Silently.
+Button: Switch perspective
+
+Code: 404
+Title: Page in Hardcore
+Text: One mistake. It’s gone forever.
+Button: Start a new world
+
+Code: 404
+Title: Page in Creative
+Text: It built itself out of bounds.
+Button: Fly to it
+
+Code: 404
+Title: Page in Adventure Mode
+Text: You can’t break through to it.
+Button: Find the right tool
+
+Code: 404
+Title: Page in the End
+Text: It’s floating somewhere near an obsidian pillar.
+Button: Launch a rescue
+
+Code: 404
+Title: Page in Mod Hell
+Text: 87 mods loaded. None claimed this page.
+Button: Debug the pack
+
+Code: 404
+Title: Page in the Twilight Forest
+Text: It’s behind a boss gate. You’re not ready.
+Button: Gear up
+
+Code: 404
+Title: Page in the Aether
+Text: It’s floating among clouds and moas.
+Button: Build a skybridge
+
+Code: 404
+Title: Page in Deep Dark
+Text: It’s hiding from the Warden. So should you.
+Button: Sneak in
+
+Code: 404
+Title: Page in the Vault
+Text: It’s locked behind a modded dungeon.
+Button: Find the key
+
+Code: 404
+Title: Page in the Data Pack
+Text: Custom logic misplaced it.
+Button: Recompile
+
+Code: 404
+Title: Page in the Config File
+Text: It’s disabled by default.
+Button: Enable manually
+
+Code: 404
+Title: Page in the Resource Pack
+Text: The texture exists. The page doesn’t.
+Button: Check assets
+
+Code: 404
+Title: Page in the Command Block
+Text: It’s buried in redstone logic.
+Button: Activate the circuit
+
+Code: 404
+Title: Page in the Debug Screen
+Text: F3 shows nothing. That’s the problem.
+Button: Reload chunks
