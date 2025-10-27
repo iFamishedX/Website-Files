@@ -39,10 +39,17 @@ body {
   0% { opacity: 0; transform: translateY(-20px); }
   100% { opacity: 1; transform: translateY(0); }
 }
+
 @keyframes sweepInRight {
   0% { opacity: 0; transform: translateX(40px); }
   100% { opacity: 1; transform: translateX(0); }
 }
+
+@keyframes zoomInIcon {
+  0% { opacity: 0; transform: scale(0.6); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
 @keyframes softFade {
   0% { opacity: 0; }
   100% { opacity: 1; }
@@ -105,24 +112,23 @@ body {
   transform: scale(1.08);
 }
 
-/* Home and download buttons: icon-only, no color change on hover */
+/* Home and download buttons: icon-only, zoom entrance, no color flash */
 .home-button,
 .download-button {
   border: none !important;
   padding: 0 !important;
   background: none !important;
-  transform: translateX(40px);
   opacity: 0;
-  animation: sweepInRight 0.6s ease-out 1.0s forwards;
+  animation: zoomInIcon 0.5s ease-out 1.0s forwards;
 }
 
 .home-button i,
 .download-button i {
   font-size: 27px;
+  color: white;
   transition: transform 0.2s ease;
 }
 
-/* Grow icons on hover, keep them white */
 .home-button:hover i,
 .download-button:hover i {
   transform: scale(1.15);
