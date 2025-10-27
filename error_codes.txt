@@ -1,0 +1,9 @@
+Code: 404
+Title: The page you seek is hidden in the shadows.
+Text: Only those who know the way can find it.
+Button: Find the way
+
+Code: 403
+Title: You shall not pass.
+Text: Access denied by the server overlords.
+Button: Return to safety
