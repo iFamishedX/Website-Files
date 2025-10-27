@@ -1,8 +1,9 @@
 <!-- Sticky Header -->
 <div class="sticky-header">
   <div class="sticky-left">
-    <div class="home-button" onclick="window.location.href='https://optifineforfabric.com'">
+    <div class="icon-button home-button" onclick="window.location.href='https://optifineforfabric.com'">
       <i class="fa-solid fa-house"></i>
+      <span class="tooltip">Home</span>
     </div>
   </div>
 
@@ -22,8 +23,9 @@
   </div>
 
   <div class="sticky-right">
-    <div class="download-button delay-5" onclick="window.location.href='https://optifineforfabric.com/download'">
+    <div class="icon-button download-button delay-5" onclick="window.location.href='https://optifineforfabric.com/download'">
       <i class="fa-solid fa-download"></i>
+      <span class="tooltip">Download</span>
     </div>
   </div>
 </div>
@@ -43,6 +45,11 @@ body {
 @keyframes sweepInRight {
   0% { opacity: 0; transform: translateX(40px); }
   100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes tooltipFade {
+  0% { opacity: 0; transform: translateY(6px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 .sticky-header {
@@ -75,17 +82,17 @@ body {
   flex: 1;
 }
 
-/* Shared button styles */
-.nav-button,
-.home-button,
-.download-button {
+/* Center buttons */
+.nav-button {
+  border: 1px solid white;
+  padding: 8px 16px;
+  border-radius: 16px;
   color: white;
   font-size: 14px;
   font-weight: 500;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  border-radius: 16px;
   cursor: pointer;
   opacity: 0;
   transform: translateX(40px);
@@ -93,38 +100,51 @@ body {
   animation: sweepInRight 0.6s ease-out forwards;
 }
 
-/* Center buttons keep borders and padding */
-.nav-button {
-  border: 1px solid white;
-  padding: 8px 16px;
+.nav-button:hover {
+  background-color: white;
+  color: black;
+  transform: scale(1.08);
 }
 
-/* Home and download buttons: no border, icon-only */
-.home-button,
-.download-button {
-  padding: 0;
-  background: none;
-  border: none;
+/* Icon-only buttons */
+.icon-button {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateX(40px);
+  animation: sweepInRight 0.6s ease-out forwards;
 }
 
-.home-button i,
-.download-button i {
+.icon-button i {
   font-size: 27px;
   color: white;
   transition: transform 0.2s ease;
 }
 
-.home-button:hover i,
-.download-button:hover i {
+.icon-button:hover i {
   transform: scale(1.15);
-  color: white;
 }
 
-/* Hover effect for center buttons */
-.nav-button:hover {
-  background-color: white;
+/* Tooltip styling */
+.tooltip {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
   color: black;
-  transform: scale(1.08);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.icon-button:hover .tooltip {
+  animation: tooltipFade 0.3s ease-out forwards;
 }
 
 /* Entrance delays */
