@@ -85,6 +85,7 @@ body.darkmode .page-gradient {
   width: 44px;
   height: 44px;
   background: #f9f9f9;
+  color: #111;
   border: none;
   border-radius: 50%;
   cursor: pointer;
@@ -111,12 +112,9 @@ body.darkmode #modeTrigger {
   left: 50%;
   width: 20px;
   height: 2px;
-  background: #111;
+  background: currentColor;
   transform: translateX(-50%);
   transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.5s ease;
-}
-body.darkmode .bar {
-  background: #f9f9f9;
 }
 .bar.top { top: 12px; }
 .bar.middle { top: 21px; }
@@ -201,69 +199,3 @@ body.darkmode .mode-icons button::after {
   opacity: 1;
 }
 </style>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const modeButtons = document.querySelectorAll(".mode-icons button");
-  const bg = document.querySelector(".page-bg");
-  const gradient = document.querySelector(".page-gradient");
-  const trigger = document.getElementById("modeTrigger");
-  const icons = document.getElementById("modeIcons");
-
-  const backgrounds = window.__darkmodeBackgrounds || {};
-
-  function resolveMode(mode) {
-    if (mode === "auto") {
-      const hour = new Date().getHours();
-      if (hour >= 5 && hour < 10) return "sunrise";
-      if (hour >= 10 && hour < 17) return "noon";
-      if (hour >= 17 && hour < 21) return "dusk";
-      return "night";
-    }
-    return mode;
-  }
-
-  function applyMode(mode) {
-    document.body.classList.add("transitioning");
-
-    const resolved = resolveMode(mode);
-    const url = backgrounds[resolved];
-    const isDark = ["dusk", "night"].includes(resolved);
-
-    if (bg && url) {
-      bg.style.backgroundImage = `url('${url}')`;
-    }
-
-    if (gradient) {
-      gradient.style.opacity = isDark ? "0" : "1";
-    }
-
-    document.body.classList.toggle("darkmode", isDark);
-    localStorage.setItem("visualMode", mode);
-
-    setTimeout(() => {
-      document.body.classList.remove("transitioning");
-    }, 400);
-  }
-
-  if (trigger && icons) {
-    trigger.addEventListener("click", () => {
-      trigger.classList.toggle("active");
-      icons.classList.toggle("active");
-    });
-  }
-
-  const saved = localStorage.getItem("visualMode");
-  const initial = saved && backgrounds[saved] ? saved : "auto";
-  applyMode(initial);
-
-  modeButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      if (!document.body.classList.contains("transitioning")) {
-        const mode = btn.getAttribute("data-mode");
-        applyMode(mode);
-      }
-    });
-  });
-});
-</script>
