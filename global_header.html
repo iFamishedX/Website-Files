@@ -4,8 +4,8 @@
     <div class="icon-button home-button delay-1">
       <div class="icon-hover">
         <i class="fa-solid fa-house" onclick="window.location.href='https://optifineforfabric.com'"></i>
+        <div class="hover-label home-label">Home</div>
       </div>
-      <div class="hover-label home-label">Home</div>
     </div>
   </div>
 
@@ -26,8 +26,8 @@
 
   <div class="sticky-right">
     <div class="icon-button download-button delay-6">
-      <div class="hover-label download-label">Download</div>
       <div class="icon-hover">
+        <div class="hover-label download-label">Download</div>
         <i class="fa-solid fa-download" onclick="window.location.href='https://optifineforfabric.com/download'"></i>
       </div>
     </div>
@@ -110,10 +110,15 @@ body {
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
   opacity: 0;
   transform: translateX(40px);
   animation: sweepInRight 0.6s ease-out forwards;
+}
+
+.icon-hover {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
 }
 
 .icon-hover i {
@@ -142,27 +147,29 @@ body {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* Home label: slides in from left (appears to right of icon) */
+/* Home label: appears to right, slides in from left */
 .home-label {
+  margin-left: 8px;
   transform: translateX(-20px);
 }
 
-.home-button .icon-hover:hover + .home-label {
+.icon-hover:hover .home-label {
   opacity: 1;
   transform: translateX(0);
 }
 
-/* Download label: slides in from right (appears to left of icon) */
+/* Download label: appears to left, slides in from right */
 .download-label {
+  margin-right: 8px;
   transform: translateX(20px);
 }
 
-.download-button .icon-hover:hover + .download-label {
+.icon-hover:hover .download-label {
   opacity: 1;
   transform: translateX(0);
 }
 
-/* Entrance delays (0.4s sooner) */
+/* Entrance delays */
 .delay-1 { animation-delay: 0.8s; }
 .delay-2 { animation-delay: 1.0s; }
 .delay-3 { animation-delay: 1.2s; }
