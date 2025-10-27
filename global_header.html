@@ -47,11 +47,6 @@ body {
   100% { opacity: 1; transform: translateX(0); }
 }
 
-@keyframes tooltipFade {
-  0% { opacity: 0; transform: translateY(6px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
 .sticky-header {
   position: fixed;
   top: 0;
@@ -128,10 +123,7 @@ body {
 
 /* Tooltip styling */
 .tooltip {
-  position: absolute;
-  bottom: -34px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: fixed;
   background: white;
   color: black;
   padding: 4px 10px;
@@ -140,32 +132,29 @@ body {
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  max-width: 120px;
-  text-align: center;
   transition: opacity 0.2s ease, transform 0.2s ease;
   z-index: 1000;
 }
 
 .icon-button:hover .tooltip {
-  animation: tooltipFade 0.3s ease-out forwards;
+  opacity: 1;
 }
 
-/* Prevent tooltip overflow */
-.tooltip::after {
-  content: "";
-  position: absolute;
-  top: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 6px solid transparent;
-  border-bottom-color: white;
-}
-
-/* Entrance delays */
-.delay-1 { animation-delay: 1.2s; }
-.delay-2 { animation-delay: 1.4s; }
-.delay-3 { animation-delay: 1.6s; }
-.delay-4 { animation-delay: 1.8s; }
-.delay-5 { animation-delay: 2.0s; }
-.delay-6 { animation-delay: 2.2s; }
+/* Entrance delays (0.4s sooner than before) */
+.delay-1 { animation-delay: 0.8s; }
+.delay-2 { animation-delay: 1.0s; }
+.delay-3 { animation-delay: 1.2s; }
+.delay-4 { animation-delay: 1.4s; }
+.delay-5 { animation-delay: 1.6s; }
+.delay-6 { animation-delay: 1.8s; }
 </style>
+
+<script>
+document.querySelectorAll('.icon-button').forEach(button => {
+  const tooltip = button.querySelector('.tooltip');
+  button.addEventListener('mousemove', e => {
+    tooltip.style.left = `${e.clientX}px`;
+    tooltip.style.top = `${e.clientY + 24}px`;
+  });
+});
+</script>
