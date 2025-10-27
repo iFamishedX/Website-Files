@@ -45,9 +45,11 @@ body {
   100% { opacity: 1; transform: translateX(0); }
 }
 
-@keyframes zoomInIcon {
-  0% { opacity: 0; transform: scale(0.6); }
-  100% { opacity: 1; transform: scale(1); }
+@keyframes bounceDown {
+  0%   { opacity: 0; transform: translateY(-100px); }
+  60%  { opacity: 1; transform: translateY(20px); }
+  80%  { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
 }
 
 @keyframes softFade {
@@ -112,14 +114,14 @@ body {
   transform: scale(1.08);
 }
 
-/* Home and download buttons: icon-only, zoom entrance, no color flash */
+/* Home and download buttons: bounce entrance, no color flash */
 .home-button,
 .download-button {
   border: none !important;
   padding: 0 !important;
   background: none !important;
   opacity: 0;
-  animation: zoomInIcon 0.5s ease-out 1.0s forwards;
+  animation: bounceDown 0.8s ease-out 2s forwards;
 }
 
 .home-button i,
