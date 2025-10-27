@@ -88,7 +88,6 @@ body {
 .sticky-header a {
   color: white;
   text-decoration: none;
-  border: 1px solid white;
   padding: 8px 16px;
   border-radius: 16px;
   font-size: 14px;
@@ -108,12 +107,12 @@ body {
   transform: scale(1.08);
 }
 
-/* Home and download buttons: sweep in like center buttons */
-.home-button {
-  animation: sweepInRight 0.6s ease-out 1.0s forwards;
-}
+/* Home and download buttons: no border, synced sweep-in */
+.home-button,
 .download-button {
-  animation: sweepInRight 0.6s ease-out 2.0s forwards;
+  padding: 0 !important;
+  background: none !important;
+  animation: sweepInRight 0.6s ease-out 1.2s forwards;
 }
 
 .home-button i,
