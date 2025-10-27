@@ -123,7 +123,10 @@ body {
 
 /* Tooltip styling */
 .tooltip {
-  position: fixed;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
   background: white;
   color: black;
   padding: 4px 10px;
@@ -136,6 +139,11 @@ body {
   z-index: 1000;
 }
 
+.icon-button:hover .tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(4px);
+}
+
 /* Entrance delays (0.4s sooner) */
 .delay-1 { animation-delay: 0.8s; }
 .delay-2 { animation-delay: 1.0s; }
@@ -144,37 +152,3 @@ body {
 .delay-5 { animation-delay: 1.6s; }
 .delay-6 { animation-delay: 1.8s; }
 </style>
-
-<script>
-document.querySelectorAll('.icon-button').forEach(button => {
-  const icon = button.querySelector('i');
-  const tooltip = button.querySelector('.tooltip');
-
-  icon.addEventListener('mouseenter', () => {
-    tooltip.style.opacity = '1';
-  });
-
-  icon.addEventListener('mouseleave', () => {
-    tooltip.style.opacity = '0';
-  });
-
-  icon.addEventListener('mousemove', e => {
-    const tooltipWidth = tooltip.offsetWidth;
-    const tooltipHeight = tooltip.offsetHeight;
-    const padding = 10;
-
-    let x = e.clientX + 12;
-    let y = e.clientY + 24;
-
-    if (x + tooltipWidth + padding > window.innerWidth) {
-      x = window.innerWidth - tooltipWidth - padding;
-    }
-    if (y + tooltipHeight + padding > window.innerHeight) {
-      y = window.innerHeight - tooltipHeight - padding;
-    }
-
-    tooltip.style.left = `${x}px`;
-    tooltip.style.top = `${y}px`;
-  });
-});
-</script>
