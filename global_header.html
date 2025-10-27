@@ -3,7 +3,7 @@
   <div class="sticky-left">
     <div class="icon-button home-button delay-1">
       <i class="fa-solid fa-house" onclick="window.location.href='https://optifineforfabric.com'"></i>
-      <span class="tooltip">Home</span>
+      <div class="tooltip">Home</div>
     </div>
   </div>
 
@@ -25,7 +25,7 @@
   <div class="sticky-right">
     <div class="icon-button download-button delay-6">
       <i class="fa-solid fa-download" onclick="window.location.href='https://optifineforfabric.com/download'"></i>
-      <span class="tooltip">Download</span>
+      <div class="tooltip">Download</div>
     </div>
   </div>
 </div>
@@ -136,11 +136,7 @@ body {
   z-index: 1000;
 }
 
-.icon-button:hover .tooltip {
-  opacity: 1;
-}
-
-/* Entrance delays (0.4s sooner than before) */
+/* Entrance delays (0.4s sooner) */
 .delay-1 { animation-delay: 0.8s; }
 .delay-2 { animation-delay: 1.0s; }
 .delay-3 { animation-delay: 1.2s; }
@@ -151,10 +147,34 @@ body {
 
 <script>
 document.querySelectorAll('.icon-button').forEach(button => {
+  const icon = button.querySelector('i');
   const tooltip = button.querySelector('.tooltip');
-  button.addEventListener('mousemove', e => {
-    tooltip.style.left = `${e.clientX}px`;
-    tooltip.style.top = `${e.clientY + 24}px`;
+
+  icon.addEventListener('mouseenter', () => {
+    tooltip.style.opacity = '1';
+  });
+
+  icon.addEventListener('mouseleave', () => {
+    tooltip.style.opacity = '0';
+  });
+
+  icon.addEventListener('mousemove', e => {
+    const tooltipWidth = tooltip.offsetWidth;
+    const tooltipHeight = tooltip.offsetHeight;
+    const padding = 10;
+
+    let x = e.clientX + 12;
+    let y = e.clientY + 24;
+
+    if (x + tooltipWidth + padding > window.innerWidth) {
+      x = window.innerWidth - tooltipWidth - padding;
+    }
+    if (y + tooltipHeight + padding > window.innerHeight) {
+      y = window.innerHeight - tooltipHeight - padding;
+    }
+
+    tooltip.style.left = `${x}px`;
+    tooltip.style.top = `${y}px`;
   });
 });
 </script>
