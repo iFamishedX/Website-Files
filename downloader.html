@@ -1,0 +1,486 @@
+<!-- BLOCK 1: Fonts, Scripts, Filters, and Initial Layout -->
+<!-- Load Work Sans font and Marked.js for markdown rendering -->
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<style>
+body, select, .card {
+font-family: 'Work Sans', sans-serif;
+}
+
+.filter-group {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 16px;
+margin-bottom: 20px;
+text-align: center;
+}
+
+.filter-group label {
+font-weight: 600;
+margin-bottom: 4px;
+display: block;
+font-size: 14px;
+color: #fff;
+text-align: center;
+}
+
+select {
+background-color: #962F30;
+color: #FFFFFF;
+border: none;
+border-radius: 8px;
+padding: 10px 14px;
+font-size: 16px;
+cursor: pointer;
+width: 100%;
+text-align: center;
+appearance: none;
+background-image: url("data:image/svg+xml,%3Csvg fill='white' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+background-repeat: no-repeat;
+background-position: right 12px center;
+background-size: 16px;
+}
+</style>
+
+<!-- Filter controls -->
+<div class="filter-group">
+<div>
+<label for="mc-version">Minecraft version</label>
+<select id="mc-version">
+<option value="all">All Minecraft versions</option>
+</select>
+</div>
+<div>
+<label for="optifine-version">OptiFine for Fabric version</label>
+<select id="optifine-version">
+<option value="all">All OFF versions</option>
+</select>
+</div>
+<div>
+<label for="release-channel">Channel</label>
+<select id="release-channel">
+<option value="all">All channels</option>
+<option value="release">Release</option>
+<option value="beta">Beta</option>
+<option value="alpha">Alpha</option>
+</select>
+</div>
+<div>
+<label for="sort-by">Order</label>
+<select id="sort-by">
+<option value="newest">Newest</option>
+<option value="oldest">Oldest</option>
+<option value="downloads">Most downloads</option>
+</select>
+</div>
+</div>
+
+<!-- Container for version cards -->
+<div id="card-container"></div>
+<div class="pagination" id="pagination-controls"></div>
+<!-- BLOCK 2: Card Layout + Changelog Styling + Cyclical Bullets -->
+<style>
+#card-container {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+gap: 20px;
+justify-content: center;
+align-items: start;
+grid-auto-rows: auto;
+padding: 10px 0;
+}
+
+.card {
+background-color: rgba(249, 249, 249, 0.75);
+border: 1px solid #ddd;
+border-radius: 8px;
+padding: 14px;
+box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+width: 100%;
+max-width: 360px;
+min-height: 180px;
+align-self: start;
+}
+
+.card h3 {
+margin: 0 0 8px;
+font-weight: 600;
+font-size: 18px;
+display: flex;
+align-items: center;
+gap: 8px;
+flex-wrap: wrap;
+}
+
+.card p {
+margin: 4px 0;
+font-size: 14px;
+color: #333;
+}
+
+.card a {
+display: inline-block;
+margin-top: 10px;
+background-color: #962F30;
+color: #fff;
+padding: 8px 14px;
+border-radius: 6px;
+text-decoration: none;
+font-weight: 600;
+font-size: 14px;
+width: auto;
+max-width: fit-content;
+}
+
+.badge {
+display: inline-block;
+font-weight: bold;
+font-size: 13px;
+padding: 2px 6px;
+border-radius: 4px;
+margin-left: 0;
+white-space: nowrap;
+}
+
+.badge.release {
+background-color: #4CAF50;
+color: white;
+}
+.badge.beta {
+background-color: #f97316;
+color: white;
+}
+.badge.alpha {
+background-color: #dc2626;
+color: white;
+}
+
+.no-results {
+font-size: 16px;
+color: #962F30;
+font-weight: 600;
+margin-top: 20px;
+text-align: center;
+}
+
+.pagination {
+display: flex;
+gap: 6px;
+margin-top: 20px;
+flex-wrap: wrap;
+justify-content: center;
+}
+
+.pagination button {
+background-color: #962F30;
+color: #fff;
+border: none;
+border-radius: 6px;
+padding: 6px 10px;
+font-size: 14px;
+cursor: pointer;
+}
+.pagination button:hover {
+background-color: #7f2627;
+}
+.pagination button:disabled {
+background-color: #ccc;
+cursor: not-allowed;
+}
+.pagination .active {
+background-color: #333;
+}
+
+.changelog {
+display: none;
+margin-top: 10px;
+font-size: 14px;
+background: #f9f9f9;
+padding: 10px;
+border-radius: 6px;
+border: 1px solid #ddd;
+}
+
+.changelog h1, .changelog h2, .changelog h3 {
+font-weight: 600;
+margin-top: 1em;
+margin-bottom: 0.5em;
+font-size: 1.2em;
+}
+
+.changelog p {
+margin: 0.5em 0;
+}
+
+.changelog ul {
+list-style: none;
+padding-left: 20px;
+margin: 0.5em 0;
+}
+.changelog ul li {
+position: relative;
+padding-left: 20px;
+margin-bottom: 6px;
+}
+.changelog ul li::before {
+position: absolute;
+left: 0;
+color: #555;
+}
+
+/* Cyclical bullets by nesting level */
+.changelog ul li::before { content: "•"; }
+.changelog ul ul li::before { content: "◦"; }
+.changelog ul ul ul li::before { content: "▸"; }
+.changelog ul ul ul ul li::before { content: "•"; }
+.changelog ul ul ul ul ul li::before { content: "◦"; }
+.changelog ul ul ul ul ul ul li::before { content: "▸"; }
+
+.changelog ol {
+padding-left: 20px;
+margin: 0.5em 0;
+}
+</style>
+<!-- BLOCK 3: Fetch + Filters + Sorting -->
+<script>
+let allVersions = [];
+let currentPage = 1;
+const pageSize = 10;
+
+fetch("https://api.modrinth.com/v2/project/BHtwz1lb/version")
+.then(res => res.json())
+.then(data => {
+allVersions = data;
+
+// Populate Minecraft versions
+const mcVersions = [...new Set(data.flatMap(v => v.game_versions))].sort().reverse();
+const mcDropdown = document.getElementById("mc-version");
+mcVersions.forEach(v => {
+const opt = document.createElement("option");
+opt.value = v;
+opt.textContent = v;
+mcDropdown.appendChild(opt);
+});
+
+// Populate OFF versions including legacy
+const optiMajors = [...new Set(data.map(v => {
+const parts = v.version_number.split("+");
+const raw = parts[1] || "";
+if (raw === "legacy") return "legacy";
+const match = raw.match(/^(\d+)/);
+return match ? match[1] : null;
+}).filter(Boolean))].sort((a, b) => {
+if (a === "legacy") return -1;
+if (b === "legacy") return 1;
+return parseInt(b) - parseInt(a);
+});
+
+const optiDropdown = document.getElementById("optifine-version");
+optiMajors.forEach(v => {
+const opt = document.createElement("option");
+opt.value = v;
+opt.textContent = v === "legacy" ? "Legacy" : `OFFv${v}`;
+optiDropdown.appendChild(opt);
+});
+
+renderFiltered();
+});
+
+document.getElementById("mc-version").addEventListener("change", () => {
+currentPage = 1;
+renderFiltered();
+});
+document.getElementById("optifine-version").addEventListener("change", () => {
+currentPage = 1;
+renderFiltered();
+});
+document.getElementById("release-channel").addEventListener("change", () => {
+currentPage = 1;
+renderFiltered();
+});
+document.getElementById("sort-by").addEventListener("change", () => {
+currentPage = 1;
+renderFiltered();
+});
+
+function extractOptiFineMajor(versionStr) {
+const parts = versionStr.split("+");
+const raw = parts[1] || "";
+if (raw === "legacy") return "legacy";
+const match = raw.match(/^(\d+)/);
+return match ? match[1] : null;
+}
+
+function renderFiltered() {
+const selectedMC = document.getElementById("mc-version").value;
+const selectedOpti = document.getElementById("optifine-version").value;
+const selectedChannel = document.getElementById("release-channel").value;
+const sortBy = document.getElementById("sort-by").value;
+
+let filtered = allVersions;
+
+if (selectedMC !== "all") {
+filtered = filtered.filter(v => v.game_versions.includes(selectedMC));
+}
+
+if (selectedOpti !== "all") {
+filtered = filtered.filter(v => extractOptiFineMajor(v.version_number) === selectedOpti);
+}
+
+if (selectedChannel !== "all") {
+filtered = filtered.filter(v => v.version_type === selectedChannel);
+}
+
+if (sortBy === "downloads") {
+filtered.sort((a, b) => b.downloads - a.downloads);
+} else if (sortBy === "oldest") {
+filtered.sort((a, b) => new Date(a.date_published) - new Date(b.date_published));
+} else {
+filtered.sort((a, b) => new Date(b.date_published) - new Date(a.date_published));
+}
+
+renderCards(filtered);
+renderPagination(filtered.length);
+}
+</script>
+<!-- BLOCK 4: Card Rendering + Changelog + Pagination -->
+<script>
+function renderCards(versions) {
+const container = document.getElementById("card-container");
+container.innerHTML = "";
+
+const start = (currentPage - 1) * pageSize;
+const pageVersions = versions.slice(start, start + pageSize);
+
+if (pageVersions.length === 0) {
+container.innerHTML = `<div class="no-results">No versions found. Try changing your filters above.</div>`;
+return;
+}
+
+pageVersions.forEach(v => {
+const parts = v.version_number.split("+");
+const mcVersionRaw = parts[0];
+const mcVersion = `1.${mcVersionRaw}`;
+const optiRaw = parts[1] || "";
+const optiMajor = optiRaw === "legacy" ? "Legacy" : optiRaw.match(/^(\d+)/)?.[1] || "?";
+const channel = v.version_type;
+
+const publishedDate = new Date(v.date_published);
+const now = new Date();
+const daysAgo = Math.floor((now - publishedDate) / (1000 * 60 * 60 * 24));
+let relativeTime = "";
+if (daysAgo < 1) {
+relativeTime = "Published today";
+} else if (daysAgo === 1) {
+relativeTime = "Published 1 day ago";
+} else if (daysAgo <= 5) {
+relativeTime = `Published ${daysAgo} days ago`;
+} else if (daysAgo <= 13) {
+relativeTime = "Published about 1 week ago";
+} else if (daysAgo <= 29) {
+relativeTime = "Published about 2 weeks ago";
+} else if (daysAgo <= 59) {
+relativeTime = "Published about 1 month ago";
+} else if (daysAgo <= 89) {
+relativeTime = "Published about 2 months ago";
+} else if (daysAgo <= 119) {
+relativeTime = "Published about 3 months ago";
+} else if (daysAgo <= 149) {
+relativeTime = "Published about 4 months ago";
+} else if (daysAgo <= 179) {
+relativeTime = "Published about 5 months ago";
+} else if (daysAgo <= 209) {
+relativeTime = "Published about 6 months ago";
+} else if (daysAgo <= 239) {
+relativeTime = "Published about 7 months ago";
+} else if (daysAgo <= 269) {
+relativeTime = "Published about 8 months ago";
+} else if (daysAgo <= 299) {
+relativeTime = "Published about 9 months ago";
+} else if (daysAgo <= 329) {
+relativeTime = "Published about 10 months ago";
+} else if (daysAgo <= 364) {
+relativeTime = "Published about 11 months ago";
+} else if (daysAgo <= 449) {
+relativeTime = "Published over a year ago";
+} else {
+relativeTime = `Published on ${publishedDate.toLocaleDateString()}`;
+}
+
+const isLegacy = optiMajor === "Legacy";
+const badgeClass = isLegacy ? "release" : channel === "alpha" ? "alpha" : channel === "beta" ? "beta" : "release";
+const badgeLabel = isLegacy ? "Legacy" : channel.charAt(0).toUpperCase() + channel.slice(1);
+
+const card = document.createElement("div");
+card.className = "card";
+card.innerHTML = `
+<h3>${optiMajor === "Legacy" ? "OFF Legacy" : `OFFv${optiMajor}`} for Minecraft ${mcVersion}
+<span class="badge ${badgeClass}">${badgeLabel}</span>
+</h3>
+<p>${relativeTime}</p>
+<p>${v.downloads.toLocaleString()} downloads</p>
+<a href="https://modrinth.com/modpack/optifine-for-fabric/version/${v.id}" target="_blank">Download</a>
+${v.changelog ? `
+<button onclick="toggleChangelog(this)" style="margin-top:10px; background:#eee; border:none; padding:6px 10px; border-radius:6px; cursor:pointer;">Show changelog</button>
+<div class="changelog" style="display:none;"></div>
+` : ''}
+`;
+container.appendChild(card);
+
+if (v.changelog) {
+const changelogDiv = card.querySelector(".changelog");
+changelogDiv.innerHTML = marked.parse(v.changelog);
+}
+});
+}
+
+function renderPagination(totalItems) {
+const controls = document.getElementById("pagination-controls");
+controls.innerHTML = "";
+
+const totalPages = Math.ceil(totalItems / pageSize);
+if (totalPages <= 1) return;
+
+const createButton = (label, page, disabled = false, active = false) => {
+const btn = document.createElement("button");
+btn.textContent = label;
+if (disabled) btn.disabled = true;
+if (active) btn.classList.add("active");
+btn.onclick = () => {
+currentPage = page;
+renderFiltered();
+window.scrollTo({ top: 0, behavior: "smooth" });
+};
+return btn;
+};
+
+controls.appendChild(createButton("First", 1, currentPage === 1));
+if (currentPage > 1) {
+controls.appendChild(createButton("Prev", currentPage - 1));
+}
+
+for (let i = 1; i <= totalPages; i++) {
+controls.appendChild(createButton(i, i, false, i === currentPage));
+}
+
+if (currentPage < totalPages) {
+controls.appendChild(createButton("Next", currentPage + 1));
+}
+controls.appendChild(createButton("Last", totalPages, currentPage === totalPages));
+}
+
+function toggleChangelog(btn) {
+const log = btn.nextElementSibling;
+if (log.style.display === "none") {
+log.style.display = "block";
+btn.textContent = "Hide changelog";
+} else {
+log.style.display = "none";
+btn.textContent = "Show changelog";
+}
+}
+</script>
