@@ -1,0 +1,12 @@
+<script>
+(function() {
+  const mainDomain = "optifineforfabric.com";
+  const currentHost = location.hostname;
+
+  if (currentHost !== mainDomain && currentHost.endsWith("." + mainDomain)) {
+    const subdomain = currentHost.split(".")[0];
+    const targetURL = `https://${mainDomain}/${subdomain}${location.pathname}${location.search}`;
+    location.replace(targetURL);
+  }
+})();
+</script>
