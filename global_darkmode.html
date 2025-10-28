@@ -26,13 +26,14 @@
 body {
   margin: 0;
   font-family: 'Work Sans', sans-serif;
+  color: #111;
   background-color: #f5f5f5;
-  transition: background-color 0.5s ease;
+  transition: color 0.5s ease, background-color 0.5s ease;
 }
 body.darkmode {
+  color: #f9f9f9;
   background-color: #111;
 }
-
 body.transitioning .mode-icons button,
 body.transitioning #modeTrigger {
   pointer-events: none;
@@ -84,6 +85,7 @@ body.darkmode .page-gradient {
   width: 44px;
   height: 44px;
   background: #f9f9f9;
+  color: #111;
   border: none;
   border-radius: 50%;
   cursor: pointer;
@@ -91,10 +93,11 @@ body.darkmode .page-gradient {
   animation-delay: 0.5s;
   opacity: 0;
   transform: translateY(20px);
-  transition: background-color 0.5s ease;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 body.darkmode #modeTrigger {
   background: #111;
+  color: #f9f9f9;
 }
 
 @keyframes slideUp {
@@ -111,7 +114,7 @@ body.darkmode #modeTrigger {
   height: 2px;
   background: currentColor;
   transform: translateX(-50%);
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.5s ease;
 }
 .bar.top { top: 12px; }
 .bar.middle { top: 21px; }
@@ -142,6 +145,7 @@ body.darkmode #modeTrigger {
   height: 44px;
   border-radius: 50%;
   background: #f9f9f9;
+  color: #111;
   border: none;
   font-size: 20px;
   display: flex;
@@ -150,7 +154,7 @@ body.darkmode #modeTrigger {
   cursor: pointer;
   opacity: 0;
   transform: translateX(20px);
-  transition: opacity 0.4s ease, transform 0.4s ease, background-color 0.5s ease;
+  transition: opacity 0.4s ease, transform 0.4s ease, background-color 0.5s ease, color 0.5s ease;
 }
 .mode-icons.active button {
   opacity: 1;
@@ -164,6 +168,7 @@ body.darkmode #modeTrigger {
 
 body.darkmode .mode-icons button {
   background: #111;
+  color: #f9f9f9;
 }
 .mode-icons button i {
   position: relative;
@@ -183,10 +188,12 @@ body.darkmode .mode-icons button {
   opacity: 0;
   pointer-events: none;
   background-color: #f9f9f9;
-  transition: opacity 0.3s ease, background-color 0.5s ease;
+  color: #111;
+  transition: opacity 0.3s ease, background-color 0.5s ease, color 0.5s ease;
 }
 body.darkmode .mode-icons button::after {
   background-color: #111;
+  color: #f9f9f9;
 }
 .mode-icons button:hover::after {
   opacity: 1;
