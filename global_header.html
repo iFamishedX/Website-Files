@@ -17,9 +17,10 @@
     <div class="nav-button delay-4" onclick="location.href='https://hungersmp.com'">
       <i class="fa-solid fa-server"></i> Join my server!
     </div>
-    <div class="nav-button delay-5" onclick="location.href='https://modrinth.com/user/ifamished'">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="18" height="18" fill="white" style="margin-right:8px">
-        <path d="M0 0v256h256V0H0zm192 192h-32v-64h-32v64H96V64h96v128z"/>
+    <div class="nav-button delay-5 modrinth-button" onclick="location.href='https://modrinth.com/user/ifamished'">
+      <svg class="modrinth-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="18" height="18">
+        <path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zm0 472c-119.4 0-216-96.6-216-216S136.6 40 256 40s216 96.6 216 216-96.6 216-216 216z"/>
+        <!-- Replace with actual Modrinth path if needed -->
       </svg>
       Modrinth
     </div>
@@ -103,6 +104,16 @@ body {
   background-color: white;
   color: black;
   transform: scale(1.08);
+}
+
+/* Modrinth SVG hover logic */
+.modrinth-icon path {
+  fill: #00AF5C;
+  transition: fill 0.3s ease;
+}
+
+.nav-button:hover .modrinth-icon path {
+  fill: black;
 }
 
 /* Icon buttons */
