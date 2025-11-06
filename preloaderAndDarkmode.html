@@ -1,0 +1,249 @@
+<!-- Load Font Awesome FIRST -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.1.0/css/all.min.css">
+
+<style>
+#preloader {
+position: fixed;
+inset: 0;
+background: black;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+z-index: 9999;
+color: white;
+font-size: 24px;
+font-family: 'Work Sans', sans-serif;
+opacity: 1;
+transition: opacity 1.6s ease-out;
+pointer-events: auto;
+user-select: none;
+}
+
+#preloader * {
+pointer-events: none;
+user-select: none;
+}
+
+#spinner, #percent {
+display: none;
+}
+
+#spinner {
+transform: rotate(-90deg);
+margin-bottom: 12px;
+filter: drop-shadow(0 0 6px #00AF5C);
+animation: pulse 1.2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+0%, 100% { transform: scale(1) rotate(-90deg); }
+50% { transform: scale(1.08) rotate(-90deg); }
+}
+
+#percent {
+font-weight: 600;
+letter-spacing: 1px;
+transition: all 0.3s ease;
+}
+
+body.transitioning .mode-icons button,
+body.transitioning #modeTrigger {
+pointer-events: none;
+opacity: 0.6;
+}
+
+body.loaded #modeTrigger {
+animation: slideUp 0.6s ease-out forwards;
+animation-delay: 0.5s;
+opacity: 0;
+transform: translateY(20px);
+}
+
+#modeTrigger {
+position: relative;
+width: 44px;
+height: 44px;
+background: #f9f9f9;
+color: #111;
+border: none;
+border-radius: 50%;
+cursor: pointer;
+opacity: 0;
+transform: translateX(20px);
+transition: opacity 0.4s ease, transform 0.4s ease, background-color 0.5s ease, color 0.5s ease;
+transition-delay: 0.3s;
+}
+
+.mode-icons.active + #modeTrigger,
+.mode-icons.active ~ #modeTrigger {
+opacity: 1;
+transform: translateX(0);
+}
+
+@keyframes slideUp {
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+</style>
+
+<div id="preloader">
+<svg id="spinner" viewBox="0 0 100 100" width="100" height="100">
+<circle cx="50" cy="50" r="45" stroke="#333" stroke-width="10" fill="none"/>
+<circle id="progress-ring" cx="50" cy="50" r="45" stroke="#00AF5C" stroke-width="10" fill="none"
+stroke-dasharray="282.6" stroke-dashoffset="282.6" stroke-linecap="round"/>
+</svg>
+<div id="percent">0%</div>
+</div>
+
+<div id="global-darkmode"></div>
+
+<script>
+(async () => {
+const preloadFlag = "preloaderGraphicShown";
+const showGraphic = !localStorage.getItem(preloadFlag);
+const preloader = document.getElementById("preloader");
+const spinner = document.getElementById("spinner");
+const percent = document.getElementById("percent");
+const ring = document.getElementById("progress-ring");
+
+if (showGraphic) {
+spinner.style.display = "block";
+percent.style.display = "block";
+}
+
+const backgrounds = {
+sunrise: "https://i.imgur.com/GQCwJrt.png",
+noon: "https://i.imgur.com/wDVtdQS.png",
+dusk: "https://i.imgur.com/0AW80yG.png",
+night: "https://i.imgur.com/32gWzm3.png"
+};
+
+const assets = [
+"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.1.0/css/all.min.css",
+...Object.values(backgrounds)
+];
+
+let loaded = 0;
+const total = assets.length + 1;
+
+function updateProgress() {
+loaded++;
+if (showGraphic) {
+const progress = loaded / total;
+ring.style.strokeDashoffset = 282.6 * (1 - progress);
+percent.textContent = Math.round(progress * 100) + "%";
+}
+if (loaded === total) {
+preloader.style.opacity = 0;
+setTimeout(() => {
+preloader.remove();
+if (showGraphic) localStorage.setItem(preloadFlag, "true");
+}, 1800);
+}
+}
+
+assets.forEach(src => {
+if (/\.(jpg|png|webp|svg)$/.test(src)) {
+const img = new Image();
+img.onload = updateProgress;
+img.onerror = updateProgress;
+img.src = src;
+} else {
+fetch(src).then(updateProgress).catch(updateProgress);
+}
+});
+
+window.addEventListener("load", updateProgress);
+
+// Inject global darkmode system
+const res = await fetch("https://assets.ifamished.com/global_darkmode.html");
+const html = await res.text();
+document.getElementById("global-darkmode").innerHTML = html;
+
+setTimeout(() => {
+const modeButtons = document.querySelectorAll(".mode-icons button");
+const bg = document.querySelector(".page-bg");
+const gradient = document.querySelector(".page-gradient");
+const trigger = document.getElementById("modeTrigger");
+const icons = document.getElementById("modeIcons");
+
+let currentResolvedMode = null;
+
+function resolveMode(mode) {
+if (mode === "auto") {
+const hour = new Date().getHours();
+if (hour >= 5 && hour < 10) return "sunrise";
+if (hour >= 10 && hour < 17) return "noon";
+if (hour >= 17 && hour < 21) return "dusk";
+return "night";
+}
+return mode;
+}
+
+function isDark(mode) {
+return ["dusk", "night"].includes(mode);
+}
+
+function applyMode(mode, isInitial = false) {
+const resolved = resolveMode(mode);
+const url = backgrounds[resolved];
+const darkNow = isDark(resolved);
+const darkBefore = isDark(currentResolvedMode);
+const lightnessChanged = darkNow !== darkBefore;
+
+currentResolvedMode = resolved;
+localStorage.setItem("visualMode", mode);
+
+if (bg && url) {
+if (isInitial || !lightnessChanged) {
+bg.style.transition = "none";
+gradient.style.transition = "none";
+}
+bg.style.backgroundImage = `url('${url}')`;
+}
+
+if (gradient) gradient.style.opacity = darkNow ? "0" : "1";
+document.body.classList.toggle("darkmode", darkNow);
+
+if (lightnessChanged && !isInitial) {
+document.body.classList.add("transitioning");
+modeButtons.forEach(btn => btn.disabled = true);
+if (trigger) trigger.disabled = true;
+setTimeout(() => {
+document.body.classList.remove("transitioning");
+modeButtons.forEach(btn => btn.disabled = false);
+if (trigger) trigger.disabled = false;
+}, 400);
+} else {
+bg.style.transition = "";
+gradient.style.transition = "";
+}
+}
+
+if (trigger && icons) {
+trigger.addEventListener("click", () => {
+trigger.classList.toggle("active");
+icons.classList.toggle("active");
+});
+}
+
+const saved = localStorage.getItem("visualMode");
+const initial = saved && backgrounds[saved] ? saved : "auto";
+applyMode(initial, true);
+
+document.body.classList.add("loaded");
+
+modeButtons.forEach(btn => {
+btn.addEventListener("click", () => {
+if (!document.body.classList.contains("transitioning")) {
+const mode = btn.getAttribute("data-mode");
+applyMode(mode);
+}
+});
+});
+}, 100);
+})();
+</script>
