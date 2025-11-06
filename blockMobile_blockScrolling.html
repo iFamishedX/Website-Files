@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Scroll Disabled</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="content" style="height: 2000px; background: linear-gradient(to bottom, #eee, #ccc);">
+    <h1 style="padding: 20px;">Scroll is disabled</h1>
+  </div>
+
+  <script>
+    // Block scroll events
+    window.addEventListener('scroll', () => {
+      window.scrollTo(0, 0);
+    });
+
+    // Mobile override
+    (function() {
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+      if (!isMobile) return;
+
+      document.documentElement.style.overflow = "hidden";
+      document.body.innerHTML = "";
+      document.body.style.margin = "0";
+      document.body.style.background = "#111";
+      document.body.style.color = "#fff";
+      document.body.style.fontFamily = "system-ui, sans-serif";
+      document.body.style.display = "flex";
+      document.body.style.flexDirection = "column";
+      document.body.style.justifyContent = "center";
+      document.body.style.alignItems = "center";
+      document.body.style.height = "100vh";
+      document.body.style.textAlign = "center";
+      document.body.style.padding = "20px";
+
+      const h1 = document.createElement("h1");
+      h1.textContent = "Desktop Only";
+      h1.style.fontSize = "1.5rem";
+      h1.style.marginBottom = "12px";
+
+      const p = document.createElement("p");
+      p.textContent = "This site is best viewed on a desktop device. Mobile support is not available.";
+      p.style.fontSize = "1rem";
+      p.style.opacity = "0.8";
+
+      document.body.appendChild(h1);
+      document.body.appendChild(p);
+    })();
+  </script>
+</body>
+</html>
