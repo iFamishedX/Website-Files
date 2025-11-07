@@ -8,6 +8,11 @@ Title: Unauthorized Access
 Text: You need a higher clearance level to enter.
 Button: Level up
 
+Code: 429
+Title: Too Many Requests
+Text: Sorry, drag clicking isn't supported.
+Button: Try butterfly clicking
+
 Code: 403
 Title: You shall not pass.
 Text: Access denied by the server overlords.
@@ -22,11 +27,6 @@ Code: 405
 Title: Method Not Allowed
 Text: This page doesn’t accept that kind of request.
 Button: Try a gentler approach
-
-Code: 418
-Title: I'm a Teapot
-Text: This server refuses to brew coffee. It’s a teapot.
-Button: Respect the brew
 
 Code: 429
 Title: Too Many Requests
@@ -165,8 +165,8 @@ Button: Clarify
 
 Code: 401
 Title: Unauthorized
-Text: Requires login or authentication.
-Button: Log in
+Text: Only Technoblade is allowed here.
+Button: Turn away
 
 Code: 401
 Title: Access Denied
@@ -175,8 +175,8 @@ Button: Authenticate
 
 Code: 401
 Title: Credentials Missing
-Text: The gate won’t open without a key.
-Button: Provide access
+Text: The gate won’t open without being unlocked.
+Button: Find a Trial Key
 
 Code: 401
 Title: Restricted Zone
@@ -266,7 +266,7 @@ Button: Try again
 Code: 405
 Title: Invalid Method
 Text: The server doesn’t speak that language.
-Button: Rephrase
+Button: Try 1337
 
 Code: 405
 Title: Request Rejected
@@ -295,13 +295,13 @@ Button: Reset
 
 Code: 530
 Title: Origin Error
-Text: Timeout or unreachable origin (e.g. Carrd fails).
+Text: Timeout or unreachable origin
 Button: Reconnect
 
 Code: 530
 Title: Server Vanished
 Text: The origin server disappeared mid-request.
-Button: Retry
+Button: Join Hypixel
 
 Code: 530
 Title: Cloudflare Timeout
