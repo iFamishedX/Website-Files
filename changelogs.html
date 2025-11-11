@@ -184,44 +184,63 @@ const repo = "iFamishedX/Website-Markdown-Files";
 const branch = "main";
 const container = document.getElementById("card-container");
 
-fetch(`https://api.github.com/repos/${repo}/contents`)
-  .then(res => res.json())
+async function fetchMarkdownFiles(path = "") {
+  const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}?ref=${branch}`;
+  const res = await fetch(apiUrl);
+  const items = await res.json();
+
+  const markdownFiles = [];
+
+  for (const item of items) {
+    if (item.type === "file" && item.name.endsWith(".md") && item.name.toLowerCase() !== "readme.md") {
+      markdownFiles.push(item.path);
+    } else if (item.type === "dir") {
+      const nestedFiles = await fetchMarkdownFiles(item.path);
+      markdownFiles.push(...nestedFiles);
+    }
+  }
+
+  return markdownFiles;
+}
+
+function renderCard(filePath) {
+  const timestamp = Date.now();
+  const rawUrl = `https://raw.githubusercontent.com/${repo}/${branch}/${filePath}?t=${timestamp}`;
+
+  fetch(rawUrl)
+    .then(res => res.ok ? res.text() : Promise.reject("Not found"))
+    .then(text => {
+      const lines = text.split("\n");
+      const title = lines[0] || filePath.split("/").pop();
+      const description = lines[1] || "No description";
+      const bodyLines = lines.slice(2).join("\n");
+      const bodyHTML = bodyLines ? marked.parse(bodyLines) : "<p>No body content</p>";
+
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        ${marked.parse(title)}
+        ${marked.parse(description)}
+        <a href="#" onclick="toggleChangelog(this); return false;">Show full</a>
+        <div class="changelog">${bodyHTML}</div>
+      `;
+      container.appendChild(card);
+    })
+    .catch(err => {
+      const errorCard = document.createElement("div");
+      errorCard.className = "card";
+      errorCard.innerHTML = `<h3>${filePath}</h3><p>Error loading file: ${err}</p>`;
+      container.appendChild(errorCard);
+    });
+}
+
+fetchMarkdownFiles()
   .then(files => {
-    const mdFiles = files.filter(f => f.name.endsWith(".md"));
-    if (mdFiles.length === 0) {
+    if (files.length === 0) {
       container.innerHTML = `<div class="card"><h3>No markdown files found</h3></div>`;
       return;
     }
-
-    mdFiles.forEach(file => {
-      const timestamp = Date.now();
-      const rawUrl = `https://raw.githubusercontent.com/${repo}/${branch}/${file.name}?t=${timestamp}`;
-      fetch(rawUrl)
-        .then(res => res.ok ? res.text() : Promise.reject("Not found"))
-        .then(text => {
-          const lines = text.split("\n");
-          const title = lines[0] || file.name;
-          const description = lines[1] || "No description";
-          const bodyLines = lines.slice(2).join("\n");
-          const bodyHTML = bodyLines ? marked.parse(bodyLines) : "<p>No body content</p>";
-
-          const card = document.createElement("div");
-          card.className = "card";
-          card.innerHTML = `
-            ${marked.parse(title)}
-            ${marked.parse(description)}
-            <a href="#" onclick="toggleChangelog(this); return false;">Show full</a>
-            <div class="changelog">${bodyHTML}</div>
-          `;
-          container.appendChild(card);
-        })
-        .catch(err => {
-          const errorCard = document.createElement("div");
-          errorCard.className = "card";
-          errorCard.innerHTML = `<h3>${file.name}</h3><p>Error loading file: ${err}</p>`;
-          container.appendChild(errorCard);
-        });
-    });
+    files.forEach(renderCard);
   })
   .catch(err => {
     container.innerHTML = `<div class="card"><h3>Error fetching file list</h3><p>${err}</p></div>`;
