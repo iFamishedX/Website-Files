@@ -184,23 +184,20 @@ const repo = "iFamishedX/Website-Markdown-Files";
 const branch = "main";
 const container = document.getElementById("card-container");
 
-async function fetchMarkdownFiles(path = "") {
-  const apiUrl = `https://api.github.com/repos/${repo}/contents/${path}?ref=${branch}`;
-  const res = await fetch(apiUrl);
-  const items = await res.json();
+async function getAllMarkdownPaths() {
+  const treeUrl = `https://api.github.com/repos/${repo}/git/trees/${branch}?recursive=1`;
+  const res = await fetch(treeUrl);
+  const data = await res.json();
 
-  const markdownFiles = [];
+  if (!data.tree) return [];
 
-  for (const item of items) {
-    if (item.type === "file" && item.name.endsWith(".md") && item.name.toLowerCase() !== "readme.md") {
-      markdownFiles.push(item.path);
-    } else if (item.type === "dir") {
-      const nestedFiles = await fetchMarkdownFiles(item.path);
-      markdownFiles.push(...nestedFiles);
-    }
-  }
-
-  return markdownFiles;
+  return data.tree
+    .filter(item =>
+      item.type === "blob" &&
+      item.path.endsWith(".md") &&
+      item.path.toLowerCase() !== "readme.md"
+    )
+    .map(item => item.path);
 }
 
 function renderCard(filePath) {
@@ -234,13 +231,13 @@ function renderCard(filePath) {
     });
 }
 
-fetchMarkdownFiles()
-  .then(files => {
-    if (files.length === 0) {
+getAllMarkdownPaths()
+  .then(paths => {
+    if (paths.length === 0) {
       container.innerHTML = `<div class="card"><h3>No markdown files found</h3></div>`;
       return;
     }
-    files.forEach(renderCard);
+    paths.forEach(renderCard);
   })
   .catch(err => {
     container.innerHTML = `<div class="card"><h3>Error fetching file list</h3><p>${err}</p></div>`;
