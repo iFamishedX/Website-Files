@@ -1,9 +1,9 @@
 <!-- Sticky Header -->
 <div class="sticky-header">
   <div class="sticky-section sticky-left">
-    <div class="icon-button delay-1" onclick="location.href='https://optifineforfabric.com'">
-      <i class="fa-solid fa-house icon-trigger"></i>
-      <div class="hover-label">Home</div>
+    <div class="icon-button home-button delay-1">
+      <i class="fa-solid fa-house icon-trigger" onclick="location.href='https://optifineforfabric.com'"></i>
+      <div class="hover-label home-label">Home</div>
     </div>
   </div>
 
@@ -15,7 +15,7 @@
       <i class="fa-solid fa-list"></i> Changelogs
     </div>
     <div class="nav-button delay-4" onclick="location.href='https://hungersmp.com'">
-      <i class="fa-solid fa-server"></i> Join My Server
+      <i class="fa-solid fa-server"></i> Join my server!
     </div>
     <div class="nav-button delay-5" onclick="location.href='https://discord.gg/aNUYADauTJ'">
       <i class="fa-brands fa-discord"></i> Discord
@@ -26,9 +26,9 @@
   </div>
 
   <div class="sticky-section sticky-right">
-    <div class="icon-button delay-7" onclick="location.href='https://optifineforfabric.com/download'">
-      <i class="fa-solid fa-download icon-trigger"></i>
-      <div class="hover-label">Download</div>
+    <div class="icon-button download-button delay-7">
+      <i class="fa-solid fa-download icon-trigger" onclick="location.href='https://optifineforfabric.com/download'"></i>
+      <div class="hover-label download-label">Download</div>
     </div>
   </div>
 </div>
@@ -38,6 +38,16 @@ body {
   margin: 0;
   padding-top: 70px;
   font-family: 'Work Sans', sans-serif;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(-20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes sweepInRight {
+  0% { opacity: 0; transform: translateX(40px); }
+  100% { opacity: 1; transform: translateX(0); }
 }
 
 .sticky-header {
@@ -62,6 +72,11 @@ body {
   align-items: center;
 }
 
+.sticky-left,
+.sticky-right {
+  gap: 12px;
+}
+
 .sticky-center {
   flex: 1;
   justify-content: center;
@@ -69,18 +84,7 @@ body {
   display: flex;
 }
 
-/* Animations */
-@keyframes fadeIn {
-  0% { opacity: 0; transform: translateY(-20px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes sweepInRight {
-  0% { opacity: 0; transform: translateX(40px); }
-  100% { opacity: 1; transform: translateX(0); }
-}
-
-/* Nav Buttons */
+/* Nav buttons */
 .nav-button {
   border: 1px solid white;
   padding: 8px 16px;
@@ -104,7 +108,7 @@ body {
   transform: scale(1.08);
 }
 
-/* Icon Buttons */
+/* Icon buttons */
 .icon-button {
   position: relative;
   display: inline-flex;
@@ -126,7 +130,7 @@ body {
   transform: scale(1.15);
 }
 
-/* Hover Labels */
+/* Hover labels */
 .hover-label {
   font-size: 14px;
   font-weight: 500;
@@ -144,23 +148,29 @@ body {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.icon-button:hover .hover-label {
-  opacity: 1;
-}
-
-.icon-button:first-child .hover-label {
+.home-label {
   left: 100%;
   margin-left: 8px;
   transform: translateX(-20px) translateY(-50%);
 }
 
-.icon-button:last-child .hover-label {
+.home-button .icon-trigger:hover + .home-label {
+  opacity: 1;
+  transform: translateX(0) translateY(-50%);
+}
+
+.download-label {
   right: 100%;
   margin-right: 8px;
   transform: translateX(20px) translateY(-50%);
 }
 
-/* Entrance Delays */
+.download-button .icon-trigger:hover + .download-label {
+  opacity: 1;
+  transform: translateX(0) translateY(-50%);
+}
+
+/* Entrance delays */
 .delay-1 { animation-delay: 0.8s; }
 .delay-2 { animation-delay: 1.0s; }
 .delay-3 { animation-delay: 1.2s; }
